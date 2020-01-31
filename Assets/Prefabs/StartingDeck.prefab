@@ -45,4 +45,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _cards:
   - {fileID: 4117387535533130961, guid: 378e5f4e23f808a4f9ad0f0db58eeed1, type: 3}
+  - {fileID: 4117387535533130961, guid: 378e5f4e23f808a4f9ad0f0db58eeed1, type: 3}
+  - {fileID: 4117387535533130961, guid: 378e5f4e23f808a4f9ad0f0db58eeed1, type: 3}
+  - {fileID: 4117387535533130961, guid: 378e5f4e23f808a4f9ad0f0db58eeed1, type: 3}
+  - {fileID: 4117387535533130961, guid: 08c42ddbb8d34e241a36d4d70c8ec248, type: 3}
   - {fileID: 5060741021405963622, guid: 00889da07f2b2c649853a9e0b318b96b, type: 3}
+  - {fileID: 5060741021405963622, guid: 00889da07f2b2c649853a9e0b318b96b, type: 3}
+  - {fileID: 5060741021405963622, guid: 00889da07f2b2c649853a9e0b318b96b, type: 3}
+  - {fileID: 5060741021405963622, guid: 00889da07f2b2c649853a9e0b318b96b, type: 3}
+  - {fileID: 5060741021405963622, guid: bbc45dafbff54cd43887c9ee38dac3e3, type: 3}

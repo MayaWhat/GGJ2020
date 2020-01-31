@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class DrawPile : MonoBehaviour
+public class DiscardPile : MonoBehaviour
 {    
     [SerializeField]
     private List<Card> _cards;
@@ -19,19 +19,8 @@ public class DrawPile : MonoBehaviour
         
     }
 
-    public void Init(List<Card> cards)
+    public void Add(Card card)
     {
-        _cards = cards;
-        Shuffle();
-    }
-
-    public void Shuffle()
-    {
-        _cards = _cards.OrderBy(a => Random.Range(0, 1000)).ToList();
-    }
-
-    public List<Card> DrawCards(int drawAmount)
-    {
-        return _cards.Take(drawAmount).ToList();
+        _cards.Add(card);
     }
 }

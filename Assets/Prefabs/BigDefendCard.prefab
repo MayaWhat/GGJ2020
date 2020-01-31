@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1400096947608996913}
   - component: {fileID: 5060741021405963622}
   m_Layer: 0
-  m_Name: DefendCard
+  m_Name: BigDefendCard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -71,7 +71,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 0bfb01f61e25e044385d21b99584fb61, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.5330188, g: 0.6015981, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -94,5 +94,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cost: 1
-  _value: 5
+  _value: 8
   _isAttack: 0
