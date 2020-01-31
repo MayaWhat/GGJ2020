@@ -53,7 +53,7 @@ public class DrawPile : MonoBehaviour
         var drawnCards = new List<Transform>();
 
         var cardsInDrawPile = new List<Transform>();
-        foreach (Transform card in _discardPile.transform)
+        foreach (Transform card in transform)
         {
             cardsInDrawPile.Add(card);
         }
