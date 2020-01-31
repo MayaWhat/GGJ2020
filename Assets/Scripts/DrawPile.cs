@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -8,9 +7,19 @@ public class DrawPile : MonoBehaviour
     [SerializeField]
     private List<Card> _startingCards;
 
+    [SerializeField]
     private DiscardPile _discardPile;
 
     private Hand _hand;
+
+    [SerializeField]
+    private UIText _uitext;
+
+    public int CardCount { 
+        get {
+            return transform.childCount;
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -36,6 +45,9 @@ public class DrawPile : MonoBehaviour
             var cardObject = Instantiate(card, new Vector3(0, 0, 0), Quaternion.identity);
             cardObject.transform.SetParent(transform, false);
         }
+
+        UpdateUIText();
+        _discardPile.UpdateUIText();
     }
 
     public List<Card> Shuffle(List<Card> cards)
@@ -45,7 +57,7 @@ public class DrawPile : MonoBehaviour
 
     public List<Transform> DrawCards(int drawAmount)
     {
-        if (transform.childCount == 0)
+        if (CardCount == 0)
         {
             GrabDiscardPile();
         }
@@ -71,6 +83,8 @@ public class DrawPile : MonoBehaviour
             cardsInDrawPile.Remove(drawnCard);
         }
 
+        UpdateUIText();
+
         return drawnCards;
     }
 
@@ -87,6 +101,13 @@ public class DrawPile : MonoBehaviour
             card.SetParent(transform, false);
         }
 
+        UpdateUIText();
+        _discardPile.UpdateUIText();
+
         Debug.Log("Discard pile shuffled into draw pile.");
+    }
+
+    public void UpdateUIText() {
+        _uitext.SetText(CardCount.ToString());
     }
 }

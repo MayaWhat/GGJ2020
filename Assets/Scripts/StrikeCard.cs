@@ -7,6 +7,7 @@ public class StrikeCard : Card
     // Start is called before the first frame update
     void Start()
     {
+        base.Start();
     }
 
     // Update is called once per frame
@@ -15,11 +16,11 @@ public class StrikeCard : Card
         
     }
 
-    public override void PlayMe() 
+    public override void PlayMe()
     {
         var enemy = FindObjectOfType<Enemy>();
-        enemy.TakeDamage(_value);
-        var discardPile = FindObjectOfType<DiscardPile>();
-        transform.SetParent(discardPile.transform, false);
+        enemy.TakeDamage(_value);        
+        transform.SetParent(_discardPile.transform, false);
+        _discardPile.UpdateUIText();
     }
 }
