@@ -28,15 +28,15 @@ public class Player : MonoBehaviour
 
     public void TakeDamage(int damageValue)
     {
-        var mitigatedDamageValue = damageValue - _currentBlock;
-        _currentBlock -= Math.Min(0, _currentBlock - damageValue);
+        var mitigatedDamageValue = Math.Max(0, damageValue - _currentBlock);
+        _currentBlock = Math.Max(0, _currentBlock - damageValue);
 
         if (mitigatedDamageValue > 0)
         {
             _hp -= mitigatedDamageValue;
         }
 
-        Debug.Log($"Player struck with {damageValue} damage, mitigated to {mitigatedDamageValue}.");
+        Debug.Log($"Player struck with {damageValue} damage, mitigated to {mitigatedDamageValue}. New block {_currentBlock}. New hp {_hp}.");
     }
 
     public void GainBlock(int blockValue)
