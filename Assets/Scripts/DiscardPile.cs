@@ -9,6 +9,12 @@ public class DiscardPile : MonoBehaviour
     [SerializeField]
     private UIText _uitext;
 
+    public int CardCount { 
+        get {
+            return transform.childCount;
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -24,6 +30,10 @@ public class DiscardPile : MonoBehaviour
     public void Add(Transform card)
     {
         card.SetParent(transform, false);
-        _uitext.SetText(_cards.Count.ToString());
+        UpdateUIText();
+    }
+
+    public void UpdateUIText() {
+        _uitext.SetText(CardCount.ToString());
     }
 }
