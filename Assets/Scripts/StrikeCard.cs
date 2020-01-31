@@ -14,4 +14,11 @@ public class StrikeCard : Card
     {
         
     }
+
+    public void PlayMe() {
+        var enemy = FindObjectOfType<Enemy>();
+        enemy.TakeDamage(_value);
+        var discardPile = FindObjectOfType<DiscardPile>();
+        transform.SetParent(discardPile.transform, false);
+    }
 }

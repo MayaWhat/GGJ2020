@@ -27,6 +27,7 @@ public class Hand : MonoBehaviour
 
     public void DrawHand()
     {
+        _drawPile = FindObjectOfType<DrawPile>();
         _cards = _drawPile.DrawCards(_handSize);
 
         foreach (var card in _cards)
@@ -39,5 +40,10 @@ public class Hand : MonoBehaviour
     public void PlayCard(Card card)
     {
         _discardPile.Add(card);
+    }
+
+    public void DiscardCard(Card card)
+    {
+
     }
 }

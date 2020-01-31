@@ -21,4 +21,18 @@ public class Enemy : MonoBehaviour
     {
         
     }
+
+    public void TakeDamage(int damage)
+    {
+        _hp -= damage;
+        Debug.Log($"Enemy took {damage} damage.");
+
+        if (_hp <= 0) {
+            Die();
+        }
+    }
+
+    public void Die() {
+        Debug.Log("I, the enemy, am dead :(");
+    }
 }
