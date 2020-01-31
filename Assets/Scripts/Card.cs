@@ -11,10 +11,12 @@ public abstract class Card : MonoBehaviour
     [SerializeField]
     protected bool _isAttack;
 
+    protected DiscardPile _discardPile;
+
     // Start is called before the first frame update
-    void Start()
+    protected void Start()
     {
-        
+        _discardPile = FindObjectOfType<DiscardPile>();
     }
 
     // Update is called once per frame
