@@ -50,9 +50,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17f95972716b6864ca4b253cb42d247c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cost: 0
-  _value: 0
-  _isAttack: 0
+  _cost: 1
+  _value: 5
+  _isAttack: 1
 --- !u!222 &6046464424394197906
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -73,9 +73,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cost: 1
-  _value: 5
-  _isAttack: 1
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
