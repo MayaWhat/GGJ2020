@@ -95,3 +95,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _hp: 0
   _startingHp: 20
+  _damage: 3
+  _startingDamage: 0

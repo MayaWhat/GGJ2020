@@ -15,7 +15,8 @@ public class StrikeCard : Card
         
     }
 
-    public void PlayMe() {
+    public override void PlayMe() 
+    {
         var enemy = FindObjectOfType<Enemy>();
         enemy.TakeDamage(_value);
         var discardPile = FindObjectOfType<DiscardPile>();
