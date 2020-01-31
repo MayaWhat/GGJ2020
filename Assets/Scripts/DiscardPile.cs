@@ -24,6 +24,6 @@ public class DiscardPile : MonoBehaviour
     public void Add(Transform card)
     {
         card.SetParent(transform, false);
-        _uitext.SetText(_cards.Count.ToString());
+        //_uitext.SetText(_cards.Count.ToString());
     }
 }
