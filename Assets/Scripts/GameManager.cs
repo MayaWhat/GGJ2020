@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     private Deck _startDeck;
     private DrawPile _drawPile;
     private Hand _hand;
+    private Enemy _enemy;
 
     private bool _gameStarted = false;
 
@@ -16,6 +17,7 @@ public class GameManager : MonoBehaviour
     {
         _hand = FindObjectOfType<Hand>();        
         _drawPile = FindObjectOfType<DrawPile>();
+        _enemy = FindObjectOfType<Enemy>();
 
         _drawPile.Init(_startDeck.GetCards());
     }
@@ -27,11 +29,23 @@ public class GameManager : MonoBehaviour
         {
             StartGame();
         }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            PlayerEndedTurn();
+        }
     }
 
     private void StartGame()
     {
         _gameStarted = true;
+        _hand.DrawHand();
+    }
+
+    private void PlayerEndedTurn()
+    {
+        _hand.DiscardHand();
+        _enemy.DoTurn();
         _hand.DrawHand();
     }
 }

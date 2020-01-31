@@ -27,23 +27,32 @@ public class Hand : MonoBehaviour
 
     public void DrawHand()
     {
-        _drawPile = FindObjectOfType<DrawPile>();
-        _cards = _drawPile.DrawCards(_handSize);
+        var drawnCards = _drawPile.DrawCards(_handSize);
 
-        foreach (var card in _cards)
+        foreach (var card in drawnCards)
         {
-            var cardObject = Instantiate(card, new Vector3(0, 0, 0), Quaternion.identity);
-            cardObject.transform.SetParent(transform, false);
+            card.transform.SetParent(transform, false);
         }
+        Debug.Log($"Hand drawn. {_handSize} cards.");
     }
 
-    public void PlayCard(Card card)
+    public void DiscardHand()
     {
-        _discardPile.Add(card);
+        var cardsInHand = new List<Transform>();
+        foreach (Transform card in transform)
+        {
+            cardsInHand.Add(card);
+        }
+
+        foreach (var card in cardsInHand)
+        {
+            _discardPile.Add(card);
+        }
+        Debug.Log("Hand discarded.");
     }
 
-    public void DiscardCard(Card card)
+    public void Add(Transform card)
     {
-
+        card.SetParent(transform, false);
     }
 }
