@@ -12,7 +12,6 @@ public class Hand : MonoBehaviour
     void Start()
     {
         _drawPile = FindObjectOfType<DrawPile>();
-        gameObject.GetComponent<Renderer>().material.color = Color.green;
     }
 
     // Update is called once per frame
@@ -23,6 +22,8 @@ public class Hand : MonoBehaviour
 
     public void DrawHand()
     {
+
+        _drawPile = FindObjectOfType<DrawPile>();
         _cards = _drawPile.DrawCards(2);
 
         foreach (var card in _cards)
