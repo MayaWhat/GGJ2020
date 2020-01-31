@@ -17,7 +17,6 @@ public class Hand : MonoBehaviour
         _handSize = _defaultHandSize;
         _drawPile = FindObjectOfType<DrawPile>();
         _discardPile = FindObjectOfType<DiscardPile>();
-        gameObject.GetComponent<Renderer>().material.color = Color.green;
     }
 
     // Update is called once per frame
