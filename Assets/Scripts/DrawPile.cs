@@ -31,7 +31,8 @@ public class DrawPile : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        UpdateUIText();
+        _discardPile.UpdateUIText();
     }
 
     public void Init(List<Card> cards)
