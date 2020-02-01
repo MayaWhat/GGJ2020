@@ -40,19 +40,12 @@ public abstract class Card : MonoBehaviour
 
         if (_cardValueObject != null) {
             _cardValueImage = _cardValueObject.GetComponent<Image>();
-            _cardValueImage.sprite = Resources.Load<Sprite>("Sprites/Cards/Numbers/" + _value.ToString());
+            SetValue(_value);
         }
 
         if (_cardSymbolObject != null) {
             _cardSymbolImage = _cardSymbolObject.GetComponent<Image>();
-            var symbolPath = string.Empty;
-            if (_cardSymbol == CardSymbol.Attack) {
-                symbolPath = "sword";
-            } else {
-                symbolPath = "shield";
-            }
-            var sprite = Resources.Load<Sprite>("Sprites/Cards/Icons/" + symbolPath);
-            _cardSymbolImage.sprite = sprite;
+            SetSymbol(_cardSymbol);
         }   
 
         if (_cardBackObject != null) {
@@ -74,6 +67,10 @@ public abstract class Card : MonoBehaviour
     public void SetValue(int value) 
     {
         _value = value;
+        if (_cardValueImage != null)
+        {
+            _cardValueImage.sprite = Resources.Load<Sprite>("Sprites/Cards/Numbers/" + _value.ToString());
+        }
     }
 
     public int Value
@@ -95,6 +92,17 @@ public abstract class Card : MonoBehaviour
     public void SetSymbol (CardSymbol symbol)
     {
         _cardSymbol = symbol;
+
+        if (_cardSymbolImage != null)
+        {
+            var symbolPath = string.Empty;
+            if (_cardSymbol == CardSymbol.Attack) {
+                symbolPath = "sword";
+            } else {
+                symbolPath = "shield";
+            }
+            _cardSymbolImage.sprite = Resources.Load<Sprite>("Sprites/Cards/Icons/" + symbolPath);
+        }
     }
 
     public int Cost
@@ -175,7 +183,7 @@ public abstract class Card : MonoBehaviour
 
     public virtual bool CanBePlayed() 
     {
-        return _cost <= _playerEnergy.Energy && GameManager.Instance.Phase == GameplayPhase.PlayCards && !Player.Instance.IsDead && !Enemy.Instance.IsDead;
+        return _cost <= _playerEnergy.Energy && GameManager.Instance.Phase == GameplayPhase.PlayCards && !Player.Instance.IsDead && (!GameManager.Instance.Enemy?.IsDead ?? false);
     }
 
     public virtual void AttemptToPlay()

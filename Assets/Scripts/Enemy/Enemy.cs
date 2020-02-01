@@ -143,6 +143,7 @@ public class Enemy : MonoBehaviour
         Debug.Log($"Enemy struck with {damageValue} damage, mitigated to {mitigatedDamageValue}. New block {_block}. New hp {_hp}.");
         
         if (_hp <= 0) {
+            _hp = 0;
             Die();
         }
     }
@@ -158,6 +159,7 @@ public class Enemy : MonoBehaviour
         StartCoroutine(FadeOut(2f, () => 
         {
             GameManager.Instance.Busyness--;
+            Destroy(this);
         }));
         IsDead = true;
         _enemyHand.DiscardHand();

@@ -147,9 +147,12 @@ public class Hand : MonoBehaviour
         combinedCard.SetValue(leftCard.Value);
         combinedCard.Cost = leftCard.Cost;
         combinedCard.SetSymbol(rightCard.Symbol);
-        combinedCard.transform.SetParent(transform);
+        combinedCard.transform.SetParent(_discardPile.transform);
 
         GameObject.Destroy(leftCard.gameObject);
         GameObject.Destroy(rightCard.gameObject);
+
+        combinedCard.GetComponent<CombinedCard>().DoStart();
+        combinedCard.GetComponent<CombinedCard>().ApplyEffects();
     }
 }
