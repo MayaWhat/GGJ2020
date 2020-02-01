@@ -46,12 +46,12 @@ public class EndTurn : MonoBehaviour
     void OnEnable()
 	{
 		Player.OnDeath += PlayerDied;
-		Enemy.OnDeath += EnemyDied;
+		GameManager.Instance.Enemy.OnDeath += EnemyDied;
 	}
 
 	void OnDisable()
 	{
 		Player.OnDeath -= PlayerDied;
-		Enemy.OnDeath += EnemyDied;
+		GameManager.Instance.Enemy.OnDeath -= EnemyDied;
 	}
 }
