@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.00.00">
+	<object class="EncodableAsset" id="{7a953f8a-968f-44b3-9a1b-2d6b9be791ff}">
+		<property name="assetPath">
+			<value>Enemies/Evil Birb/</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{1f8e416f-afb9-4b01-8a89-ce78ff311be2}</destination>
+		</relationship>
+	</object>
+</objects>
