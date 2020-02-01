@@ -40,8 +40,6 @@ public class Hand : MonoBehaviour
             card.SetParent(transform, false);
             card.localPosition = new Vector3(0f, -250f, 0f);
             cards[i] = card;
-
-            //x += 170f;
         }
 
         StartCoroutine(DrawHandAnimate(cards, onFinish));
