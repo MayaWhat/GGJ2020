@@ -25,6 +25,13 @@ public class EnemyHand : MonoBehaviour
             var card = _drawPile.DrawCard();
             card.transform.SetParent(transform, false);
         }
+
+        // Add a placeholder in the middle to push cards to either side of enemy (hax)
+        var placeholder = Instantiate(new GameObject());
+        placeholder.AddComponent<RectTransform>();
+        placeholder.transform.SetParent(transform, false);
+        placeholder.transform.SetSiblingIndex(transform.childCount / 2);
+
         Debug.Log($"Enemy hand drawn. {_handSize} cards.");
     }
 
@@ -59,7 +66,19 @@ public class EnemyHand : MonoBehaviour
 
         foreach(Transform cardObject in cardsToPlay)
         {
-            cardObject.GetComponent<EnemyCard>().PlayMe();
+            var card = cardObject.GetComponent<EnemyCard>();
+
+            if(card == null) {
+                continue; // Skip placeholders
+            }
+
+            card.PlayMe();
+        }
+
+        // Destroy placeholders
+        foreach(Transform cardObject in transform)
+        {
+            GameObject.Destroy(cardObject.gameObject);
         }
     }
 }
