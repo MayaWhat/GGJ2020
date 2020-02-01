@@ -9,15 +9,17 @@ public abstract class EnemyCard : MonoBehaviour
     protected bool _isAttack;
     [SerializeField]
     protected GameObject _cardValueObject;
-    protected Image _cardValueImage;
+    protected Text _cardValueText;
     protected EnemyDiscardPile _discardPile;
+    [SerializeField]
+    protected int _increaseValue;
 
     // Start is called before the first frame update
     protected void Start()
     {
         _discardPile = FindObjectOfType<EnemyDiscardPile>();
-        _cardValueImage = _cardValueObject.GetComponent<Image>();
-        _cardValueImage.sprite = Resources.Load<Sprite>("Sprites/Monster Cards/Numbers/" + _value.ToString() + "_monster");
+        _cardValueText = _cardValueObject.GetComponent<Text>();
+        _cardValueText.text = _value.ToString();
     }
 
     public abstract void PlayMe();    

@@ -127,7 +127,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _hp: 0
-  _startingHp: 30
+  _startingHp: 25
   _damage: 0
   _startingDamage: 3
   _hitMarker: {fileID: 8946549839953293001}

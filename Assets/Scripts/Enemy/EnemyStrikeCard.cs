@@ -4,6 +4,8 @@
     {
         var player = FindObjectOfType<Player>();
         player.TakeDamage(_value);        
+        _value += _increaseValue;
+        _cardValueText.text = _value.ToString();
         transform.SetParent(_discardPile.transform, false);
     }
 }

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7425816838338976973}
   - component: {fileID: 6958495353694985435}
   m_Layer: 0
-  m_Name: EvilBirbStartingDeck
+  m_Name: SkeleStartingDeck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44,13 +44,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cards:
-  - {fileID: 7705512912617322847, guid: 6de765ba2373b7f40a9d9cb30c2b370a, type: 3}
-  - {fileID: 7705512912617322847, guid: 6de765ba2373b7f40a9d9cb30c2b370a, type: 3}
-  - {fileID: 7705512912617322847, guid: 6de765ba2373b7f40a9d9cb30c2b370a, type: 3}
-  - {fileID: 7705512912617322847, guid: 6de765ba2373b7f40a9d9cb30c2b370a, type: 3}
-  - {fileID: 3217708564746579855, guid: 26ae22d24f1c23e4290b214187e6249c, type: 3}
-  - {fileID: 3217708564746579855, guid: 26ae22d24f1c23e4290b214187e6249c, type: 3}
-  - {fileID: 3217708564746579855, guid: 26ae22d24f1c23e4290b214187e6249c, type: 3}
-  - {fileID: 3217708564746579855, guid: 26ae22d24f1c23e4290b214187e6249c, type: 3}
-  - {fileID: 7705512912617322847, guid: 7c8734082d7417c41ac98e90e08ed9ba, type: 3}
-  - {fileID: 3217708564746579855, guid: 36dcb56f339bf5544ad8d94d1c5aa84b, type: 3}
+  - {fileID: 4468270827358279992, guid: 474af630afa96364db6e986a2f7e31c4, type: 3}
+  - {fileID: 4468270827358279992, guid: 474af630afa96364db6e986a2f7e31c4, type: 3}
+  - {fileID: 7705512912617322847, guid: 047208a4de54a9f41a093c041136d6d3, type: 3}

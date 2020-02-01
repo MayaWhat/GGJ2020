@@ -11,6 +11,8 @@ public abstract class Card : MonoBehaviour
     [SerializeField]
     protected int _value;
     [SerializeField]
+    protected int _increaseValue;
+    [SerializeField]
     protected CardSymbol _cardSymbol;
     [SerializeField]
     protected GameObject _cardValueObject;
