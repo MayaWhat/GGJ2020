@@ -145,14 +145,23 @@ public class Hand : MonoBehaviour
         return false;
     }
 
-    public void HalfCardSelected(HalfCard halfCard) {
+    public void FullCardSelected() {
+        _activeHalfCard = null;
+        UpdateHalfCardHighlighting();
+    }
+
+    public void HalfCardSelected(HalfCard halfCard) 
+    {
         if(_activeHalfCard == null)
         {
             _activeHalfCard = halfCard;
+            UpdateHalfCardHighlighting();
         }
 
-        if(halfCard.IsLeftHalf != _activeHalfCard.IsLeftHalf) {
-            if(halfCard.IsLeftHalf) {
+        if(halfCard.IsLeftHalf != _activeHalfCard.IsLeftHalf) 
+        {
+            if(halfCard.IsLeftHalf) 
+            {
                 Combine(halfCard, _activeHalfCard);
                 return;
             }
@@ -160,10 +169,45 @@ public class Hand : MonoBehaviour
             return;
         }
 
-         _activeHalfCard = halfCard;        
+         _activeHalfCard = halfCard;
+         UpdateHalfCardHighlighting();
     }
 
-    public void Combine(HalfCard leftCard, HalfCard rightCard) {
+    private void UpdateHalfCardHighlighting() {
+        
+        foreach(Transform cardObject in transform)
+        {
+        var card = cardObject.GetComponent<Card>();
+        card.ChangeCardBack(Color.white);
+        }
+
+        if(_activeHalfCard == null)
+        {
+            return;
+        }
+        
+        _activeHalfCard.ChangeCardBack(Color.red);
+
+        foreach(Transform cardObject in transform)
+        {
+            var halfCard = cardObject.GetComponent<HalfCard>();
+
+            if(halfCard != null) 
+            {
+                if(_activeHalfCard.IsLeftHalf && !halfCard.IsLeftHalf)
+                {
+                    halfCard.ChangeCardBack(Color.blue);
+                }
+                else if(!_activeHalfCard.IsLeftHalf && halfCard.IsLeftHalf)
+                {
+                    halfCard.ChangeCardBack(Color.blue);
+                }
+            }
+        }
+    }
+
+    public void Combine(HalfCard leftCard, HalfCard rightCard) 
+    {
         var combinedCardObject = Instantiate(Resources.Load("Prefabs/CombinedCard")) as GameObject;
         var combinedCard = combinedCardObject.GetComponent<Card>();
         combinedCard.SetValue(leftCard.Value);
