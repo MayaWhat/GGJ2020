@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
 {    
@@ -14,7 +15,7 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private int _startingDamage;
 
-    private SpriteRenderer _spriteRenderer;
+    private Image _image;
     private Player _player;
     private GameObject _enemyHealthUI;
     public bool IsDead { get; private set; }
@@ -87,7 +88,7 @@ public class Enemy : MonoBehaviour
         _hp = _startingHp;
         _damage = _startingDamage;
         _player = FindObjectOfType<Player>();
-        _spriteRenderer = GetComponent<SpriteRenderer>();
+        _image = GetComponentInChildren<Image>();
         _enemyHealthUI = GameObject.FindGameObjectWithTag("EnemyHealthUI");
         _enemyDrawPile = FindObjectOfType<EnemyDrawPile>();
         _enemyHand = FindObjectOfType<EnemyHand>();
@@ -95,7 +96,7 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
-        if (ShouldAppear && !_spriteRenderer.enabled)
+        if (ShouldAppear && !_image.enabled)
         {
             Appear();
         }
@@ -103,8 +104,8 @@ public class Enemy : MonoBehaviour
 
     private void Appear()
     {
-        _spriteRenderer.enabled = true;
-        _spriteRenderer.color = new Color(1, 1, 1, 0f);
+        _image.enabled = true;
+        _image.color = new Color(1, 1, 1, 0f);
         foreach (Transform uiElement in _enemyHealthUI.transform)
         {
             uiElement.gameObject.SetActive(true);
@@ -164,11 +165,11 @@ public class Enemy : MonoBehaviour
     IEnumerator FadeIn(float aTime, Action onFinish)
     {
         float newAlphaValue = 1f;
-        float alpha = _spriteRenderer.color.a;
+        float alpha = _image.color.a;
         for (float t = 0.0f; t < 1.0f; t += Time.deltaTime / aTime)
         {
             Color newColor = new Color(1, 1, 1, Mathf.Lerp(alpha, newAlphaValue, t));
-            _spriteRenderer.color = newColor;
+            _image.color = newColor;
             yield return null;
         }
 
@@ -177,11 +178,11 @@ public class Enemy : MonoBehaviour
 
     IEnumerator FadeTo(float aValue, float aTime, bool toRed)
     {
-        float gb = _spriteRenderer.color.g;
+        float gb = _image.color.g;
         for (float t = 0.0f; t < 1.0f; t += Time.deltaTime / aTime)
         {
             Color newColor = new Color(1, Mathf.Lerp(gb, aValue, t), Mathf.Lerp(gb, aValue, t), 1);
-            _spriteRenderer.color = newColor;
+            _image.color = newColor;
             yield return null;
         }
 
@@ -192,18 +193,18 @@ public class Enemy : MonoBehaviour
 
         if (!toRed)
         {
-            _spriteRenderer.color = new Color(1, 1, 1, 1);
+            _image.color = new Color(1, 1, 1, 1);
         }
     }
 
     IEnumerator FadeOut(float aTime)
     {
         float newAlphaValue = 0;
-        float alpha = _spriteRenderer.color.a;
+        float alpha = _image.color.a;
         for (float t = 0.0f; t < 1.0f; t += Time.deltaTime / aTime)
         {
             Color newColor = new Color(1, 1, 1, Mathf.Lerp(alpha, newAlphaValue, t));
-            _spriteRenderer.color = newColor;
+            _image.color = newColor;
             yield return null;
         }
     }

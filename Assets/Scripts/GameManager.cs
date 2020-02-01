@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     private Deck _startDeck;
+    private Canvas _canvas;
     private DrawPile _drawPile;
     private Hand _hand;
     public Enemy Enemy
@@ -42,6 +44,7 @@ public class GameManager : MonoBehaviour
 
         Phase = GameplayPhase.Calm;
 
+        _canvas = FindObjectOfType<Canvas>();
         _hand = FindObjectOfType<Hand>();        
         _drawPile = FindObjectOfType<DrawPile>();
         _enemyPool = GetComponentsInChildren<Enemy>();
@@ -73,6 +76,8 @@ public class GameManager : MonoBehaviour
         }
 
         Enemy = Instantiate(selectedEnemy).GetComponent<Enemy>();
+        Enemy.transform.SetParent(_canvas.transform);
+        Enemy.transform.localPosition = new Vector3(0f, 150f, 0f);
         Enemy.ShouldAppear = true;
         Enemy.OnDeath += EnemyDefeated;
         Enemy.OnAppear += DrawCards;
