@@ -1138,7 +1138,7 @@ MonoBehaviour:
   _healthText: {fileID: 8558740008089981944}
   _blockSlider: {fileID: 4213288988416382414}
   _blockText: {fileID: 8667814881955181053}
-  _blockPulseObject: {fileID: 0}
+  _blockPulseObject: {fileID: 534631043234898269}
 --- !u!1 &4665780642952830785
 GameObject:
   m_ObjectHideFlags: 0

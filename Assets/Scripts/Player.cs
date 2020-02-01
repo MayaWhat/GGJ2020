@@ -100,13 +100,15 @@ public class Player : MonoBehaviour
         var mitigatedDamageValue = Math.Max(0, damageValue - _currentBlock);
         _currentBlock = Math.Max(0, _currentBlock - damageValue);
 
+        if (oldBlock != _currentBlock)
+        {
+            OnBlock();
+        }
+        
         if (mitigatedDamageValue > 0)
         {
             _hp -= mitigatedDamageValue;
-            if (oldBlock != _currentBlock)
-            {
-                OnBlock();
-            }
+
             StartCoroutine(FadeRed(0, 0.1f, true));
             StartCoroutine(FadeHitMarker(1f, .1f, () => Invoke("FadeHitMarkerOut", 1f)));
         }
