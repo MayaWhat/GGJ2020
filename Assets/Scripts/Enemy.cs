@@ -84,6 +84,8 @@ public class Enemy : MonoBehaviour
     {
         _hp -= damage;
         Debug.Log($"Enemy took {damage} damage.");
+        
+        StartCoroutine(FadeTo(0, 0.1f, true));
 
         if (_hp <= 0) {
             Die();
@@ -93,4 +95,21 @@ public class Enemy : MonoBehaviour
     public void Die() {
         Debug.Log("I, the enemy, am dead :(");
     }
+
+    IEnumerator FadeTo(float aValue, float aTime, bool toRed)
+    {
+        float gb = _spriteRenderer.color.g;
+        for (float t = 0.0f; t < 1.0f; t += Time.deltaTime / aTime)
+        {
+            Color newColor = new Color(1, Mathf.Lerp(gb, aValue, t), Mathf.Lerp(gb, aValue, t), 1);
+            _spriteRenderer.color = newColor;
+            yield return null;
+        }
+
+        if (toRed)
+        {
+            StartCoroutine(FadeTo(1.0f, 0.1f, false));
+        }
+    }
+
 }
