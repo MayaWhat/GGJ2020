@@ -568,6 +568,12 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 7621514717983762586, guid: 2ff4a1b17e4a84744ad345a4b4a469a3,
+        type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 4618357f79c8800469d1f881bba63a57,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2ff4a1b17e4a84744ad345a4b4a469a3, type: 3}
 --- !u!224 &4878418245034136682 stripped
@@ -1125,6 +1131,12 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1120142276188292951, guid: 57b16b8d32ef1f14094ea029652a3923,
+        type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 4618357f79c8800469d1f881bba63a57,
+        type: 3}
     - target: {fileID: 1976517701057906798, guid: 57b16b8d32ef1f14094ea029652a3923,
         type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -1240,11 +1252,23 @@ PrefabInstance:
       propertyPath: m_Text
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 6262842399572909390, guid: 57b16b8d32ef1f14094ea029652a3923,
+        type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 4618357f79c8800469d1f881bba63a57,
+        type: 3}
     - target: {fileID: 6369944732107587403, guid: 57b16b8d32ef1f14094ea029652a3923,
         type: 3}
       propertyPath: m_Text
       value: 20 / 20
       objectReference: {fileID: 0}
+    - target: {fileID: 6369944732107587403, guid: 57b16b8d32ef1f14094ea029652a3923,
+        type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 4618357f79c8800469d1f881bba63a57,
+        type: 3}
     - target: {fileID: 7297745475862530053, guid: 57b16b8d32ef1f14094ea029652a3923,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1964,22 +1988,22 @@ PrefabInstance:
     - target: {fileID: 6734214534127203195, guid: 99f4e381aaf466f43baceb1adeb64cc6,
         type: 3}
       propertyPath: m_Color.a
-      value: 0.5176471
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6734214534127203195, guid: 99f4e381aaf466f43baceb1adeb64cc6,
         type: 3}
       propertyPath: m_Color.r
-      value: 0.99215686
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6734214534127203195, guid: 99f4e381aaf466f43baceb1adeb64cc6,
         type: 3}
       propertyPath: m_Color.g
-      value: 0.058823552
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6734214534127203195, guid: 99f4e381aaf466f43baceb1adeb64cc6,
         type: 3}
       propertyPath: m_Color.b
-      value: 0.9713073
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 99f4e381aaf466f43baceb1adeb64cc6, type: 3}
