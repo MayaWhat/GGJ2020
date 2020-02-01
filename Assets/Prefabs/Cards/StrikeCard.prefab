@@ -144,10 +144,7 @@ MonoBehaviour:
   _value: 5
   _cardSymbol: 0
   _cardValueObject: {fileID: 5994292295466271013}
-  _halfCardLeft: {fileID: 3427256552962784762, guid: f9c5db37f3b80614face57e1d4548cab,
-    type: 3}
-  _halfCardRight: {fileID: 7346102502794929283, guid: a02e6fee597c137469c427bd89d2a495,
-    type: 3}
+  _cardSymbolObject: {fileID: 294419889014311950}
 --- !u!114 &803701562261859004
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -12,7 +12,9 @@ public abstract class Card : MonoBehaviour
     [SerializeField]
     protected GameObject _cardValueObject;
     protected Image _cardValueImage;
-
+    [SerializeField]
+    protected GameObject _cardSymbolObject;
+    protected Image _cardSymbolImage;
     protected PlayerEnergy _playerEnergy;
 
     protected DiscardPile _discardPile;
@@ -21,11 +23,24 @@ public abstract class Card : MonoBehaviour
     protected void Start()
     {
         _discardPile = FindObjectOfType<DiscardPile>();
+        _playerEnergy = FindObjectOfType<PlayerEnergy>();
+
         if (_cardValueObject != null) {
             _cardValueImage = _cardValueObject.GetComponent<Image>();
             _cardValueImage.sprite = Resources.Load<Sprite>("Sprites/Cards/Numbers/" + _value.ToString());
+        }
+
+        if (_cardSymbolObject != null) {
+            _cardSymbolImage = _cardSymbolObject.GetComponent<Image>();
+            var symbolPath = string.Empty;
+            if (_cardSymbol == CardSymbol.Attack) {
+                symbolPath = "sword";
+            } else {
+                symbolPath = "shield";
+            }
+            var sprite = Resources.Load<Sprite>("Sprites/Cards/Icons/" + symbolPath);
+            _cardSymbolImage.sprite = sprite;
         }        
-        _playerEnergy = FindObjectOfType<PlayerEnergy>();
     }
 
     // Update is called once per frame

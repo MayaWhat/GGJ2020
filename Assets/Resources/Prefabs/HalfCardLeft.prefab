@@ -169,8 +169,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _cost: 1
   _value: 10
-  _isAttack: 0
-  _cardValueObject: {fileID: 0}
+  _cardSymbol: 0
+  _cardValueObject: {fileID: 872890099816813091}
+  _cardSymbolObject: {fileID: 0}
 --- !u!1 &2665291269691724634
 GameObject:
   m_ObjectHideFlags: 0
