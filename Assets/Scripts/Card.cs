@@ -136,6 +136,8 @@ public abstract class Card : MonoBehaviour
 
     private IEnumerator AnimatePlay()
     {
+        GameManager.Instance.Sounds.CastSpell.Play();
+
         var position = transform.position;
 
         transform.SetParent(_canvas.transform);
