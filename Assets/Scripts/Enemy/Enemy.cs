@@ -144,6 +144,7 @@ public class Enemy : MonoBehaviour
     {
         StartCoroutine(FadeOut(2f));
         IsDead = true;
+        _enemyHand.DiscardHand();
         OnDeath();
         Debug.Log("I, the enemy, am dead :(");
     }

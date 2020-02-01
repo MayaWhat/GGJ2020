@@ -20,6 +20,12 @@ public class EnemyHand : MonoBehaviour
 
     public void DrawHand()
     {
+        // Remove any placeholders
+        foreach(Transform cardObject in transform)
+        {
+            GameObject.Destroy(cardObject.gameObject);
+        }
+
         for (int i = 0; i < _handSize; i++)
         {
             var card = _drawPile.DrawCard();
@@ -43,10 +49,23 @@ public class EnemyHand : MonoBehaviour
             cardsInHand.Add(card);
         }
 
-        foreach (var card in cardsInHand)
+        foreach (var cardObject in cardsInHand)
         {
-            _discardPile.Add(card);
+            var card = cardObject.GetComponent<EnemyCard>();
+
+            if(card == null) {
+                continue; // Skip placeholders
+            }
+
+            _discardPile.Add(cardObject);
         }
+
+        // Remove any placeholders
+        foreach(Transform cardObject in transform)
+        {
+            GameObject.Destroy(cardObject.gameObject);
+        }
+
         Debug.Log("Enemy Hand discarded.");
     }
 
