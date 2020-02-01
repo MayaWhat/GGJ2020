@@ -19,6 +19,9 @@ public class SoundManager : MonoBehaviour
     [SerializeField]
     public FMODUnity.StudioEventEmitter EnemyAppear;
 
+    [SerializeField]
+    public FMODUnity.StudioEventEmitter CastSpell;
+
     // Start is called before the first frame update
     void Start()
     {
