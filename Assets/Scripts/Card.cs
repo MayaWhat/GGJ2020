@@ -177,8 +177,8 @@ public abstract class Card : MonoBehaviour
         var halves = Split();
         _screenFlash.Flash();
 
-        // _splitParticles.transform.SetParent(_canvas.transform);
-        // _splitParticles.transform.position = transform.position;
+        _splitParticles.transform.SetParent(_canvas.transform);
+        _splitParticles.transform.position = transform.position;
         _splitParticles.Play();
 
         // TODO: remove once the card effects are animated
@@ -189,6 +189,7 @@ public abstract class Card : MonoBehaviour
             halves.LeftHalf.transform.SetParent(_discardPile.transform);
             halves.RightHalf.transform.SetParent(_discardPile.transform);
             GameObject.Destroy(transform.gameObject);
+            GameObject.Destroy(_splitParticles);
             GameManager.Instance.Busyness--;
         });
     }
