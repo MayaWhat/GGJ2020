@@ -1,4 +1,6 @@
-﻿public class HalfCardLeft : Card
+﻿using System;
+
+public class HalfCardLeft : Card
 {
     public void SetValue(int value) 
     {
@@ -9,7 +11,7 @@
         return false;
     }
 
-    public override void PlayMe()
+    protected override void DoEffect(Action whenDone)
     {
         // plz don't, we don't know what could happen
     }

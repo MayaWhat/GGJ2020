@@ -1,9 +1,13 @@
-﻿public class StrikeCard : Card
+﻿using System;
+
+public class StrikeCard : Card
 {
-    public override void PlayMe()
+    protected override void DoEffect(Action whenDone)
     {
-        _playerEnergy.Energy -= _cost;
         GameManager.Instance.Enemy.TakeDamage(_value);
-        Split();
+        if(whenDone != null)
+        {
+            whenDone();
+        }
     }
 }
