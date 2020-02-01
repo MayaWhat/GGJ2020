@@ -9,6 +9,11 @@ public class Hand : MonoBehaviour
     private DiscardPile _discardPile;
     [SerializeField]
     private List<Card> _cards;
+
+    [SerializeField]
+    private FMODUnity.StudioEventEmitter _drawCardSound;
+
+
     private int _defaultHandSize = 5;
     private int _handSize;
 
@@ -61,12 +66,13 @@ public class Hand : MonoBehaviour
 
         for (var i = cards.Length - 1; i >= 0; i--)
         {
+            _drawCardSound.Play();
             var xMoveTime = 0.06f * i;
             if(xMoveTime > 0f)
             {
                 for (var t = 0.0f; t < 1.0f; t += Time.deltaTime / xMoveTime)
                 {
-                    var x = -340f + ((i * 170f) * Mathf.Min(t, 1.0f));
+                    var x = -340f + ((i * 140f) * Mathf.Min(t, 1.0f));
 
                     cards[i].localPosition = new Vector3(x, 0f, 0f);
 
@@ -74,7 +80,7 @@ public class Hand : MonoBehaviour
                 }
             }
 
-            cards[i].localPosition = new Vector3(-340f + (i * 170f), 0f, 0f);
+            cards[i].localPosition = new Vector3(-340f + (i * 140f), 0f, 0f);
         }
 
         onFinish();
