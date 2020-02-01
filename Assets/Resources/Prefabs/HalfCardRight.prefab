@@ -84,6 +84,7 @@ MonoBehaviour:
   _cardSymbol: 0
   _cardValueObject: {fileID: 0}
   _cardSymbolObject: {fileID: 6211145689930918807}
+  _cardBackObject: {fileID: 3024084668879251397}
   IsLeftHalf: 0
 --- !u!1 &3024084668879251397
 GameObject:
