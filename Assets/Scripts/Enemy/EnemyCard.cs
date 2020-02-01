@@ -17,7 +17,7 @@ public abstract class EnemyCard : MonoBehaviour
     {
         _discardPile = FindObjectOfType<EnemyDiscardPile>();
         _cardValueImage = _cardValueObject.GetComponent<Image>();
-        _cardValueImage.sprite = Resources.Load<Sprite>("Sprites/Cards/Numbers/" + _value.ToString());
+        _cardValueImage.sprite = Resources.Load<Sprite>("Sprites/Monster Cards/Numbers/" + _value.ToString() + "_monster");
     }
 
     public abstract void PlayMe();    

@@ -64,7 +64,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 67d927cdedb2d3f44960382065597cf1, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5bae2f33545c214438abb8a94450e78d, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -87,7 +87,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AspectMode: 4
-  m_AspectRatio: 0.001
+  m_AspectRatio: 1
 --- !u!1 &6194530873876337967
 GameObject:
   m_ObjectHideFlags: 0
@@ -152,7 +152,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 49af1719dbf3c104c9d20933ea94160e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 139b6bea0a70d9f41b62890f4d020544, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -175,7 +175,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AspectMode: 4
-  m_AspectRatio: 0.001
+  m_AspectRatio: 1
 --- !u!1 &7270826596117722997
 GameObject:
   m_ObjectHideFlags: 0
@@ -404,4 +404,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AspectMode: 4
-  m_AspectRatio: 0.001
+  m_AspectRatio: 1
