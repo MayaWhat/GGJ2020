@@ -110,6 +110,11 @@ public class Enemy : MonoBehaviour
         {
             StartCoroutine(FadeTo(1.0f, 0.1f, false));
         }
+
+        if (!toRed)
+        {
+            _spriteRenderer.color = new Color(1, 1, 1, 1);
+        }
     }
 
 }
