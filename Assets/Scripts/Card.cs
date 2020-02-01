@@ -20,6 +20,9 @@ public abstract class Card : MonoBehaviour
     protected Image _cardSymbolImage;
     [SerializeField]
     protected GameObject _cardBackObject;
+    [SerializeField]
+    private GameObject _cardCostObject;
+    private Text _cardCostText;
     protected Image _cardBackImage;
     protected PlayerEnergy _playerEnergy;
     protected DiscardPile _discardPile;
@@ -52,6 +55,11 @@ public abstract class Card : MonoBehaviour
 
         if (_cardBackObject != null) {
             _cardBackImage = _cardBackObject.GetComponent<Image>();
+        }
+
+        if (_cardCostObject != null) {
+            _cardCostText = _cardCostObject.GetComponent<Text>();
+            _cardCostText.text = _cost.ToString();
         }
 
         _canvas = FindObjectOfType<Canvas>();     
