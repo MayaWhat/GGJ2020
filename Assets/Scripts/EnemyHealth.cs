@@ -9,16 +9,26 @@ public class EnemyHealth : MonoBehaviour
 
     [SerializeField]
     private Slider _healthSlider;
+    
+    [SerializeField]
+    private Text _healthText;
 
     // Start is called before the first frame update
     void Start()
     {
         _enemy = FindObjectOfType<Enemy>();
+        _healthSlider.maxValue = _enemy.Health;
     }
 
     // Update is called once per frame
     void Update()
     {
         _healthSlider.value = _enemy.Health;
+        UpdateText();
+    }
+
+    public void UpdateText()
+    {
+        _healthText.text = $"{_enemy.Health.ToString()} / {_enemy.StartingHealth.ToString()}";
     }
 }
