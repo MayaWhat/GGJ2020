@@ -128,6 +128,7 @@ public class Enemy : MonoBehaviour
 
     private void Appear()
     {
+        GameManager.Instance.Sounds.EnemyAppear.Play();
         _image.enabled = true;
         _image.color = new Color(1, 1, 1, 0f);
         foreach (Transform uiElement in _enemyHealthUI.transform)
