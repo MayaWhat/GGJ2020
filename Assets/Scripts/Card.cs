@@ -257,11 +257,38 @@ public abstract class Card : MonoBehaviour
 
         if (!CanBePlayed()) {
             Debug.Log("You can't do that!");
+            CantPlayFlash();
             return;
         }
 
         PlayMe();
     }
+
+    public void CantPlayFlash() {
+        StartCoroutine(Flash(0, 0.1f, true));
+    }
+
+    IEnumerator Flash(float aValue, float aTime, bool toRed)
+    {
+        float gb = _cardBackImage.color.g;
+        for (float t = 0.0f; t < 1.0f; t += Time.deltaTime / aTime)
+        {
+            Color newColor = new Color(1, Mathf.Lerp(gb, aValue, t), Mathf.Lerp(gb, aValue, t), 1);
+            _cardBackImage.color = newColor;
+            yield return null;
+        }
+
+        if (toRed)
+        {
+            StartCoroutine(Flash(1.0f, 0.1f, false));
+        }
+
+        if (!toRed)
+        {
+            _cardBackImage.color = new Color(1, 1, 1, 1);
+        }
+    }
+
 
     public void ChangeCardBack(Color color) {
         if (_cardBackObject != null) {
