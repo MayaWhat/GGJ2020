@@ -16,6 +16,10 @@ public class Player : MonoBehaviour
 
     private SpriteRenderer _spriteRenderer;
 
+    [SerializeField]
+    private GameObject _hitMarker;
+    private SpriteRenderer _hitMarkerRenderer;
+
     public bool IsDead { get; private set; }
 
     public int Health {
@@ -64,6 +68,7 @@ public class Player : MonoBehaviour
     {
         _hp = _startingHp;
         _spriteRenderer = GetComponent<SpriteRenderer>();
+        _hitMarkerRenderer = _hitMarker.GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -96,9 +101,15 @@ public class Player : MonoBehaviour
         {
             _hp -= mitigatedDamageValue;
             StartCoroutine(FadeRed(0, 0.1f, true));
+            StartCoroutine(FadeHitMarker(1f, .1f, () => Invoke("FadeHitMarkerOut", 1f)));
         }
 
         Debug.Log($"Player struck with {damageValue} damage, mitigated to {mitigatedDamageValue}. New block {_currentBlock}. New hp {_hp}.");
+    }
+
+    private void FadeHitMarkerOut()
+    {
+        StartCoroutine(FadeHitMarker(0, .4f, null));
     }
 
     public void GainBlock(int blockValue)
@@ -106,6 +117,22 @@ public class Player : MonoBehaviour
         _currentBlock += blockValue;
 
         Debug.Log($"Player gained {blockValue} block. New block value {_currentBlock}.");
+    }
+
+    IEnumerator FadeHitMarker(float newAlphaValue, float aTime, Action onFinish)
+    {
+        float alpha = _hitMarkerRenderer.color.a;
+        for (float t = 0.0f; t < 1.0f; t += Time.deltaTime / aTime)
+        {
+            Color newColor = new Color(1, 1, 1, Mathf.Lerp(alpha, newAlphaValue, t));
+            _hitMarkerRenderer.color = newColor;
+            yield return null;
+        }
+
+        if (onFinish != null)
+        {
+            onFinish();
+        }
     }
 
     IEnumerator FadeRed(float aValue, float aTime, bool toRed)
