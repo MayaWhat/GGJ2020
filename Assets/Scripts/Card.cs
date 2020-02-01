@@ -222,6 +222,8 @@ public abstract class Card : MonoBehaviour
         leftHalf.SetValue(_value);
         leftHalf.IsLeftHalf = true;
         rightHalf.SetSymbol(_cardSymbol);
+        leftHalf.Clickable = false;
+        rightHalf.Clickable = false;
 
         leftHalf.transform.SetParent(_canvas.transform);
         leftHalf.transform.position = transform.position + new Vector3(-10f, 0f, 0f);
