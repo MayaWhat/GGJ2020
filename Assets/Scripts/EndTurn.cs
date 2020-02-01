@@ -27,8 +27,8 @@ public class EndTurn : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
-        if (!_hand.CanPlaySomething() && !Player.Instance.IsDead && !Enemy.Instance.IsDead) 
+    {        
+        if (GameManager.Instance.Phase == GameplayPhase.PlayCards && !_hand.CanPlaySomething() && !Player.Instance.IsDead && !Enemy.Instance.IsDead) 
         {
             _spriteRenderer.sprite = _youCanOnlyEndTurnSprite;
         }
@@ -55,12 +55,12 @@ public class EndTurn : MonoBehaviour
     void OnEnable()
 	{
 		Player.OnDeath += PlayerDied;
- 		GameManager.Instance.Enemy.OnDeath += EnemyDied;
+ 		//GameManager.Instance.Enemy.OnDeath += EnemyDied;
 	}
 
 	void OnDisable()
 	{
 		Player.OnDeath -= PlayerDied;
-		GameManager.Instance.Enemy.OnDeath -= EnemyDied;
+		//GameManager.Instance.Enemy.OnDeath -= EnemyDied;
 	}
 }

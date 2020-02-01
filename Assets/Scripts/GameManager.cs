@@ -57,7 +57,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.KeypadEnter) && Phase == GameplayPhase.Calm)
+        if (Phase == GameplayPhase.Calm)
         {
             IntroduceEnemy();
         }
@@ -103,6 +103,11 @@ public class GameManager : MonoBehaviour
 
     public void PlayerEndedTurn()
     {
+        if(Phase != GameplayPhase.PlayCards)
+        {
+            return;
+        }
+
         _hand.DiscardHand();
         EnemyTurn();
     }
