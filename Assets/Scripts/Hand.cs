@@ -114,11 +114,35 @@ public class Hand : MonoBehaviour
         card.SetParent(transform, false);
     }
 
-    public bool CanPlaySomething() {
-        foreach(Transform card in transform) {
-           if(card.gameObject.GetComponent<Card>().CanBePlayed()) {
-               return true;
-           }
+    public bool CanPlaySomething() 
+    {
+        var existingLeftHalf = false;
+        var existingRightHalf = false;
+
+        foreach(Transform card in transform) 
+        {
+            if(card.gameObject.GetComponent<Card>().CanBePlayed()) 
+            {
+                return true;
+            }
+
+            var existingHalf = card.gameObject.GetComponent<HalfCard>();
+
+            if(existingHalf != null) 
+            {
+                if(existingHalf.IsLeftHalf) 
+                {
+                    existingLeftHalf = true;
+                }
+                else
+                {
+                    existingRightHalf = true;
+                }
+
+                if(existingLeftHalf && existingRightHalf) {
+                    return true;
+                }
+            }
         }
         return false;
     }
