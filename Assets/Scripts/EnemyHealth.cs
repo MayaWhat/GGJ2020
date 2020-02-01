@@ -32,6 +32,7 @@ public class EnemyHealth : MonoBehaviour
     void Update()
     {
         _healthSlider.value = _enemy.Health;
+        _blockSlider.value = _enemy.Block;
         UpdateText();
     }
 

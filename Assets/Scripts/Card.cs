@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public abstract class Card : MonoBehaviour
@@ -15,6 +13,8 @@ public abstract class Card : MonoBehaviour
     protected GameObject _cardValueObject;
     protected Image _cardValueImage;
 
+    protected PlayerEnergy _playerEnergy;
+
     protected DiscardPile _discardPile;
 
 
@@ -24,6 +24,7 @@ public abstract class Card : MonoBehaviour
         _discardPile = FindObjectOfType<DiscardPile>();
         _cardValueImage = _cardValueObject.GetComponent<Image>();
         _cardValueImage.sprite = Resources.Load<Sprite>("Sprites/Cards/Numbers/" + _value.ToString());
+        _playerEnergy = FindObjectOfType<PlayerEnergy>();
     }
 
     // Update is called once per frame
@@ -33,4 +34,19 @@ public abstract class Card : MonoBehaviour
     }
 
     public abstract void PlayMe();
+
+    public bool CanBePlayed() 
+    {
+        return _cost <= _playerEnergy.Energy;
+    }
+
+    public void AttemptToPlay()
+    {
+        if (!CanBePlayed()) {
+            Debug.Log("You can't do that!");
+            return;
+        }
+
+        PlayMe();
+    }
 }

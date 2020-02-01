@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour
     private Enemy _enemy;
     private Player _player;
 
+    private PlayerEnergy _playerEnergy;
+
     private bool _gameStarted = false;
 
     // Start is called before the first frame update
@@ -20,6 +22,7 @@ public class GameManager : MonoBehaviour
         _drawPile = FindObjectOfType<DrawPile>();
         _enemy = FindObjectOfType<Enemy>();
         _player = FindObjectOfType<Player>();
+        _playerEnergy = FindObjectOfType<PlayerEnergy>();
 
         _drawPile.Init(_startDeck.GetCards());
     }
@@ -45,5 +48,6 @@ public class GameManager : MonoBehaviour
         _enemy.DoTurn();
         _player.StartTurn();
         _hand.DrawHand();
+        _playerEnergy.ResetEnergy();
     }
 }

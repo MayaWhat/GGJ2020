@@ -250,7 +250,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 5060741021405963622}
-          m_MethodName: PlayMe
+          m_MethodName: AttemptToPlay
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
