@@ -60,43 +60,14 @@ public class DrawPile : MonoBehaviour
         return cards.OrderBy(a => Random.Range(0, 1000)).ToList();
     }
 
-    public List<Transform> DrawCards(int drawAmount)
+    public Transform DrawCard()
     {
         if (CardCount == 0)
         {
             GrabDiscardPile();
         }
-
-        var drawnCards = new List<Transform>();
-
-        var cardsInDrawPile = new List<Transform>();
-        foreach (Transform card in transform)
-        {
-            cardsInDrawPile.Add(card);
-        }
-
-        for (var i = 0; i < drawAmount; i++)
-        {
-            if (!cardsInDrawPile.Any()) {
-                GrabDiscardPile();
-
-                cardsInDrawPile = new List<Transform>();
-                foreach (Transform card in transform)
-                {
-                    cardsInDrawPile.Add(card);
-                }
-
-                if(!cardsInDrawPile.Any()) {
-                    return drawnCards;
-                }
-            }
-            var drawnCard = cardsInDrawPile.FirstOrDefault();            
-
-            drawnCards.Add(drawnCard);
-            cardsInDrawPile.Remove(drawnCard);
-        }
-
-        return drawnCards;
+        
+        return transform.GetChild(0);
     }
 
     private void GrabDiscardPile()

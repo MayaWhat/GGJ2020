@@ -27,10 +27,9 @@ public class Hand : MonoBehaviour
 
     public void DrawHand()
     {
-        var drawnCards = _drawPile.DrawCards(_handSize);
-
-        foreach (var card in drawnCards)
+        for (int i = 0; i < _handSize; i++)
         {
+            var card = _drawPile.DrawCard();
             card.transform.SetParent(transform, false);
         }
         Debug.Log($"Hand drawn. {_handSize} cards.");

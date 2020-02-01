@@ -20,13 +20,12 @@ public class EnemyHand : MonoBehaviour
 
     public void DrawHand()
     {
-        var drawnCards = _drawPile.DrawCards(_handSize);
-
-        foreach (var card in drawnCards)
+        for (int i = 0; i < _handSize; i++)
         {
+            var card = _drawPile.DrawCard();
             card.transform.SetParent(transform, false);
         }
-        Debug.Log($"Enemy Hand drawn. {_handSize} cards.");
+        Debug.Log($"Enemy hand drawn. {_handSize} cards.");
     }
 
     public void DiscardHand()
