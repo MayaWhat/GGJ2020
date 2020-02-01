@@ -127,11 +127,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1678128740457757380, guid: cc79d5f739caea749a63de34872a56af,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1681438338343060260, guid: cc79d5f739caea749a63de34872a56af,
         type: 3}
       propertyPath: _drawCardSound
       value: 
-      objectReference: {fileID: 1130879796}
+      objectReference: {fileID: 0}
     - target: {fileID: 1768672213506374597, guid: cc79d5f739caea749a63de34872a56af,
         type: 3}
       propertyPath: m_LocalPosition.z
@@ -148,6 +153,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3667179787597434812, guid: cc79d5f739caea749a63de34872a56af,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4665780643973332677, guid: cc79d5f739caea749a63de34872a56af,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4665780643973332677, guid: cc79d5f739caea749a63de34872a56af,
         type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -324,35 +339,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1130879791 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4066618577201645030, guid: cc79d5f739caea749a63de34872a56af,
-    type: 3}
-  m_PrefabInstance: {fileID: 267100606}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1130879796
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1130879791}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CollisionTag: 
-  Event: event:/Card sounds/Draw card
-  PlayEvent: 0
-  StopEvent: 0
-  AllowFadeout: 1
-  TriggerOnce: 0
-  Preload: 0
-  Params: []
-  OverrideAttenuation: 0
-  OverrideMinDistance: 0
-  OverrideMaxDistance: 0
 --- !u!1 &1150604983
 GameObject:
   m_ObjectHideFlags: 0
