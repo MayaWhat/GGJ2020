@@ -16,6 +16,12 @@ public class Enemy : MonoBehaviour
     private int _startingDamage;
 
     private Player _player;
+
+    public int Health {
+        get {
+            return _hp;
+        }
+    }
     
     // Start is called before the first frame update
     void Start()
