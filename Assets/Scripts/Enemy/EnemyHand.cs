@@ -9,6 +9,9 @@ public class EnemyHand : MonoBehaviour
     private EnemyDiscardPile _discardPile;
     [SerializeField]
     private List<EnemyCard> _cards;
+
+    [SerializeField]
+    private FMODUnity.StudioEventEmitter _drawCardSound;
     private int _defaultHandSize = 2;
     private int _handSize;
 
@@ -48,7 +51,7 @@ public class EnemyHand : MonoBehaviour
         {
             var multiplier = (i % 2) == 0 ? -1 : 1;
 
-            //_drawCardSound.Play();
+            _drawCardSound.Play();
             var no = i / 2;
             var xMoveTime = 0.06f * (no + 1);
             var destinationPosition = (160f + (no * 90f)) * multiplier;
@@ -65,6 +68,8 @@ public class EnemyHand : MonoBehaviour
             }
 
             cards[i].localPosition = new Vector3(destinationPosition, 0f, 0f);
+
+            yield return new WaitForSeconds(.1f);
         }
 
         onFinish();

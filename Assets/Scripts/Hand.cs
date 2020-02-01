@@ -79,6 +79,8 @@ public class Hand : MonoBehaviour
             }
 
             cards[i].localPosition = new Vector3(-340f + (i * 140f), 0f, 0f);
+
+            yield return new WaitForSeconds(0.05f);
         }
 
         onFinish();
