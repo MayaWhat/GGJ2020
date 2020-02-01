@@ -200,14 +200,44 @@ public abstract class Card : MonoBehaviour
 
         DoEffect(() =>
         {
-            halves.LeftHalf.transform.SetParent(_discardPile.transform);
-            halves.RightHalf.transform.SetParent(_discardPile.transform);
-            GameObject.Destroy(transform.gameObject);
-            GameObject.Destroy(_splitParticles);
-            GameManager.Instance.Busyness--;
-            halves.LeftHalf.Clickable = true;
-            halves.RightHalf.Clickable = true;
+            StartCoroutine(AnimateDiscard(() =>
+            {
+                halves.LeftHalf.Clickable = true;
+                halves.RightHalf.Clickable = true;
+                GameObject.Destroy(transform.gameObject);
+                GameObject.Destroy(_splitParticles);
+                GameManager.Instance.Busyness--;  
+            }, halves.LeftHalf, halves.RightHalf));                        
         });
+    }
+
+    private IEnumerator AnimateDiscard(Action onComplete, params Card[] cards)
+    {
+        var discardDestination = new Vector3(500f, -500f, 0f);
+        for(var i = 0; i < cards.Length; i++)
+        {
+            GameManager.Instance.Sounds.PlayerDrawCard.Play();
+            var startPosition = cards[i].transform.localPosition;
+
+            var moveTime = 0.25f;
+            for (var t = 0.0f; t < 1.0f; t += Time.deltaTime / moveTime)
+            {
+                cards[i].transform.localPosition = new Vector3
+                (
+                    Mathf.Lerp(startPosition.x, discardDestination.x, t),
+                    Mathf.Lerp(startPosition.y, discardDestination.y, t),
+                    0f
+                );
+
+                yield return null;
+            }
+
+            cards[i].transform.SetParent(_discardPile.transform);
+        }  
+
+        onComplete();
+
+            
     }
 
     protected abstract void DoEffect(Action whenDone);
