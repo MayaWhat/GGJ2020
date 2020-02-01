@@ -9,8 +9,6 @@ public class Hand : MonoBehaviour
     private DiscardPile _discardPile;
     [SerializeField]
     private List<Card> _cards;
-    [SerializeField]
-    private FMODUnity.StudioEventEmitter _drawCardSound;
     private int _defaultHandSize = 5;
     private int _handSize;
     private HalfCard _activeHalfCard;
@@ -47,7 +45,7 @@ public class Hand : MonoBehaviour
     IEnumerator DrawHandAnimate(RectTransform[] cards, Action onFinish)
     {
         var yMoveTime = 0.2f;
-        _drawCardSound.Play();
+        GameManager.Instance.Sounds.PlayerDrawCard.Play();
         for (var t = 0.0f; t < 1.0f; t += Time.deltaTime / yMoveTime)
         {
             var x = -(340f * Mathf.Min(t, 1.0f));
@@ -70,7 +68,7 @@ public class Hand : MonoBehaviour
         {
             if(i > 0)
             {
-                _drawCardSound.Play();
+                GameManager.Instance.Sounds.PlayerDrawCard.Play();
             }
             
             var xMoveTime = 0.06f * i;

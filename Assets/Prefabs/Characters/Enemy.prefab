@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6265309530262033318}
   - component: {fileID: 2888123978459087186}
+  - component: {fileID: 6156745810171717742}
+  - component: {fileID: 187508018883887323}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -53,8 +55,56 @@ MonoBehaviour:
   _startingHp: 20
   _damage: 0
   _startingDamage: 3
+  _damagedSound: {fileID: 6156745810171717742}
+  _actingSound: {fileID: 187508018883887323}
   _startDeck: {fileID: 6958495353694985435, guid: bcded72253154e04a81d217ab430060d,
     type: 3}
+--- !u!114 &6156745810171717742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3204197427696599901}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  Event: event:/Enemies/Evil Birb/Defend
+  PlayEvent: 0
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 0
+  OverrideMaxDistance: 0
+--- !u!114 &187508018883887323
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3204197427696599901}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  Event: event:/Enemies/Evil Birb/Attack
+  PlayEvent: 0
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 0
+  OverrideMaxDistance: 0
 --- !u!1 &6702517793159386994
 GameObject:
   m_ObjectHideFlags: 0

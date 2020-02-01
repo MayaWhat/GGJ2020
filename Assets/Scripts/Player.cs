@@ -115,6 +115,7 @@ public class Player : MonoBehaviour
     public void GainBlock(int blockValue)
     {
         _currentBlock += blockValue;
+        GameManager.Instance.Sounds.CombatBlock.Play();
 
         Debug.Log($"Player gained {blockValue} block. New block value {_currentBlock}.");
     }

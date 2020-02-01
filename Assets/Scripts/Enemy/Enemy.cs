@@ -15,6 +15,12 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private int _startingDamage;
 
+    [SerializeField]
+    private FMODUnity.StudioEventEmitter _damagedSound;
+
+    [SerializeField]
+    private FMODUnity.StudioEventEmitter _actingSound;
+
     private Image _image;
     private Player _player;
     private GameObject _enemyHealthUI;
@@ -124,6 +130,7 @@ public class Enemy : MonoBehaviour
 
     public void DoTurn()
     {
+        _actingSound.Play();
         _enemyHand.PlayAllCards();
 
         Debug.Log("Enemy did turn.");
@@ -131,6 +138,8 @@ public class Enemy : MonoBehaviour
 
     public void TakeDamage(int damageValue)
     {
+        _damagedSound.Play();
+        GameManager.Instance.Sounds.CombatImpact.Play();
         var mitigatedDamageValue = Math.Max(0, damageValue - _block);
         _block = Math.Max(0, _block - damageValue);
 
