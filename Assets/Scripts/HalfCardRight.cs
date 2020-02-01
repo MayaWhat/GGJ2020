@@ -9,8 +9,4 @@ public class HalfCardRight : HalfCard
     {
         // plz don't, we don't know what could happen
     }
-
-    public override void AttemptToPlay() {
-        _playerHand.HalfCardSelected(this);
-    }
 }
