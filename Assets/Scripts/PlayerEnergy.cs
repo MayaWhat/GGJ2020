@@ -1,9 +1,11 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerEnergy : MonoBehaviour
 {
     private int _energy;
+    private Image[] _energies;
 
     [SerializeField]
     private int _startingEnergy = 3;
@@ -26,12 +28,23 @@ public class PlayerEnergy : MonoBehaviour
     {
          _textComponent = GetComponent<Text>();
          _energy = _startingEnergy;
+         _energies = transform.GetComponentsInChildren<Image>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        _textComponent.text = _energy.ToString();
+        for (int i = 0; i<3; i++)
+        {
+            if (_energy > i)
+            {
+                _energies[i].enabled = true;
+            }
+            else
+            {
+                _energies[i].enabled = false;
+            }
+        }
     }
 
     public void ResetEnergy()
