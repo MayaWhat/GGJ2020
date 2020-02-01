@@ -44,6 +44,8 @@ public class Player : MonoBehaviour
     
 	public delegate void DeathAction();
 	public static event DeathAction OnDeath;
+	public delegate void BlockAction();
+	public static event BlockAction OnBlock;
 
     public int StartingHealth {
         get {
@@ -94,12 +96,17 @@ public class Player : MonoBehaviour
 
     public void TakeDamage(int damageValue)
     {
+        var oldBlock = _currentBlock;
         var mitigatedDamageValue = Math.Max(0, damageValue - _currentBlock);
         _currentBlock = Math.Max(0, _currentBlock - damageValue);
 
         if (mitigatedDamageValue > 0)
         {
             _hp -= mitigatedDamageValue;
+            if (oldBlock != _currentBlock)
+            {
+                OnBlock();
+            }
             StartCoroutine(FadeRed(0, 0.1f, true));
             StartCoroutine(FadeHitMarker(1f, .1f, () => Invoke("FadeHitMarkerOut", 1f)));
         }
