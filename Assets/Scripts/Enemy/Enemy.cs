@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -69,18 +70,12 @@ public class Enemy : MonoBehaviour
 	}
     
 	public delegate void DeathAction();
-	public static event DeathAction OnDeath;
+	public event DeathAction OnDeath;
 
-    public void Appear()
+    public bool Appear
     {
-        _spriteRenderer.enabled = true;
-        foreach (Transform uiElement in _enemyHealthUI.transform)
-        {
-            uiElement.gameObject.SetActive(true);
-        }
-
-        _enemyDrawPile.Init(_startDeck.GetCards());
-        _enemyHand.DrawHand();
+        get;
+        set;
     }
     
     // Start is called before the first frame update
@@ -95,6 +90,21 @@ public class Enemy : MonoBehaviour
         _enemyHand = FindObjectOfType<EnemyHand>();
     }
 
+    void Update()
+    {
+        if (Appear && !_spriteRenderer.enabled)
+        {
+            _spriteRenderer.enabled = true;
+            foreach (Transform uiElement in _enemyHealthUI.transform)
+            {
+                uiElement.gameObject.SetActive(true);
+            }
+
+            _enemyDrawPile.Init(_startDeck.GetCards());
+            DrawHand();
+        }
+    }
+
     public void DrawHand()
     {
         _enemyHand.DrawHand();
@@ -107,13 +117,19 @@ public class Enemy : MonoBehaviour
         Debug.Log("Enemy did turn.");
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(int damageValue)
     {
-        _hp -= damage;
-        Debug.Log($"Enemy took {damage} damage.");
-        
-        StartCoroutine(FadeTo(0, 0.1f, true));
+        var mitigatedDamageValue = Math.Max(0, damageValue - _block);
+        _block = Math.Max(0, _block - damageValue);
 
+        if (mitigatedDamageValue > 0)
+        {
+            _hp -= mitigatedDamageValue;
+            StartCoroutine(FadeTo(0, 0.1f, true));
+        }
+
+        Debug.Log($"Enemy struck with {damageValue} damage, mitigated to {mitigatedDamageValue}. New block {_block}. New hp {_hp}.");
+        
         if (_hp <= 0) {
             Die();
         }
@@ -123,7 +139,7 @@ public class Enemy : MonoBehaviour
     {
         Block += block;
     }
-    
+
     public void Die() 
     {
         StartCoroutine(FadeOut(2f));
@@ -165,4 +181,8 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    public void ClearBlock()
+    {
+        _block = 0;
+    }
 }
