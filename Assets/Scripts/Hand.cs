@@ -55,4 +55,13 @@ public class Hand : MonoBehaviour
     {
         card.SetParent(transform, false);
     }
+
+    public bool CanPlaySomething() {
+        foreach(Transform card in transform) {
+           if(card.gameObject.GetComponent<Card>().CanBePlayed()) {
+               return true;
+           }
+        }
+        return false;
+    }
 }
