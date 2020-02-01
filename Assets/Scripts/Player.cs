@@ -16,11 +16,30 @@ public class Player : MonoBehaviour
 
     private SpriteRenderer _spriteRenderer;
 
+    public bool IsDead { get; private set; }
+
     public int Health {
         get {
             return _hp;
         }
     }
+
+    private static Player _instance;
+
+	public static Player Instance
+	{
+		get
+		{
+			if (_instance == null)
+			{
+				_instance = FindObjectOfType<Player>();
+			}
+			return _instance;
+		}
+	}
+    
+	public delegate void DeathAction();
+	public static event DeathAction OnDeath;
 
     public int StartingHealth {
         get {
@@ -50,7 +69,16 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (_hp < 0 && !IsDead)
+        {
+            JustDieAlready();
+        }
+    }
+
+    private void JustDieAlready()
+    {
+        IsDead = true;
+        OnDeath();
     }
 
     public void StartTurn()
