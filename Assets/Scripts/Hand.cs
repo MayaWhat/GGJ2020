@@ -49,6 +49,7 @@ public class Hand : MonoBehaviour
     IEnumerator DrawHandAnimate(RectTransform[] cards, Action onFinish)
     {
         var yMoveTime = 0.2f;
+        _drawCardSound.Play();
         for (var t = 0.0f; t < 1.0f; t += Time.deltaTime / yMoveTime)
         {
             var x = -(340f * Mathf.Min(t, 1.0f));
@@ -64,7 +65,11 @@ public class Hand : MonoBehaviour
 
         for (var i = cards.Length - 1; i >= 0; i--)
         {
-            _drawCardSound.Play();
+            if(i > 0)
+            {
+                _drawCardSound.Play();
+            }
+            
             var xMoveTime = 0.06f * i;
             if(xMoveTime > 0f)
             {
