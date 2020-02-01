@@ -32,6 +32,20 @@ public class Enemy : MonoBehaviour
             return _startingHp;
         }
     }
+
+    private int _block;
+
+    public int Block
+    {
+        get
+        {
+            return _block;
+        }
+        set 
+        {
+            _block = value;
+        }
+    }
     
     // Start is called before the first frame update
     void Start()
