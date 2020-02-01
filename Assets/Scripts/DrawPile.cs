@@ -47,7 +47,6 @@ public class DrawPile : MonoBehaviour
             cardObject.transform.SetParent(transform, false);
         }
 
-        UpdateUIText();
         _discardPile.UpdateUIText();
     }
 
@@ -89,8 +88,6 @@ public class DrawPile : MonoBehaviour
             cardsInDrawPile.Remove(drawnCard);
         }
 
-        UpdateUIText();
-
         return drawnCards;
     }
 
@@ -108,8 +105,7 @@ public class DrawPile : MonoBehaviour
         {
             card.SetParent(transform, false);
         }
-
-        UpdateUIText();
+        
         _discardPile.UpdateUIText();
 
         Debug.Log("Discard pile shuffled into draw pile.");
