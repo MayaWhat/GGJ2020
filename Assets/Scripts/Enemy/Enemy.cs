@@ -20,6 +20,9 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private GameObject _mySpriteObject;
     private Image _image;
+    [SerializeField]
+    private GameObject _blockImageObject;
+    private Image _blockImage;
 
     [SerializeField]
     private FMODUnity.StudioEventEmitter _damagedSound;
@@ -104,6 +107,7 @@ public class Enemy : MonoBehaviour
         _enemyDrawPile = FindObjectOfType<EnemyDrawPile>();
         _enemyHand = FindObjectOfType<EnemyHand>();
         _hitMarkerImage = _hitMarker.GetComponent<Image>();
+        _blockImage = _blockImageObject.GetComponent<Image>();
     }
 
     void Update()
@@ -111,6 +115,14 @@ public class Enemy : MonoBehaviour
         if (ShouldAppear && !_image.enabled)
         {
             Appear();
+        }
+        if (_block > 0)
+        {
+            _blockImage.enabled = true;
+        }
+        else
+        {
+            _blockImage.enabled = false;
         }
     }
 
