@@ -20,6 +20,13 @@ public class GameManager : MonoBehaviour
 
     private Enemy[] _enemyPool;
 
+    // super hacky lame way to allow other events to block things from happening
+    public int Busyness
+    {
+        get;
+        set;
+    }
+
     public GameplayPhase Phase
     {
         get;
@@ -42,6 +49,8 @@ public class GameManager : MonoBehaviour
             return;
         }
 
+        Busyness = 0;
+
         Phase = GameplayPhase.Calm;
 
         _canvas = FindObjectOfType<Canvas>();
@@ -57,10 +66,26 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.KeypadEnter) && Phase == GameplayPhase.Calm)
+        if(Busyness > 0)
+        {
+            return;
+        }
+
+        switch(Phase)
+        {
+            case GameplayPhase.Calm:
+                IntroduceEnemy();
+                break;
+            case GameplayPhase.PlayerTurnEnded:
+                EnemyTurn();
+                break;
+        }
+
+        if (Phase == GameplayPhase.Calm)
         {
             IntroduceEnemy();
         }
+
     }
 
     private void IntroduceEnemy()
@@ -103,8 +128,14 @@ public class GameManager : MonoBehaviour
 
     public void PlayerEndedTurn()
     {
+        if(Phase != GameplayPhase.PlayCards)
+        {
+            return;
+        }
+
         _hand.DiscardHand();
-        EnemyTurn();
+
+        Phase = GameplayPhase.PlayerTurnEnded;
     }
 
     private void EnemyTurn()
@@ -140,6 +171,7 @@ public enum GameplayPhase
     IntroduceEnemy,
     DrawCards,
     PlayCards,
+    PlayerTurnEnded,
     EnemyTurn,
     EnemyDefeated,
     PlayerDefeated

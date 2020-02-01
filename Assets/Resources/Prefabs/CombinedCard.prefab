@@ -171,8 +171,9 @@ MonoBehaviour:
   _cost: 0
   _value: 0
   _cardSymbol: 0
-  _cardValueObject: {fileID: 0}
-  _cardSymbolObject: {fileID: 0}
+  _cardValueObject: {fileID: 6902100978124213877}
+  _cardSymbolObject: {fileID: 643113166109836126}
+  _cardBackObject: {fileID: 8586417148331413260}
 --- !u!1 &6902100978124213877
 GameObject:
   m_ObjectHideFlags: 0

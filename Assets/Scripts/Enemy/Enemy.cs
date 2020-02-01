@@ -143,6 +143,7 @@ public class Enemy : MonoBehaviour
         Debug.Log($"Enemy struck with {damageValue} damage, mitigated to {mitigatedDamageValue}. New block {_block}. New hp {_hp}.");
         
         if (_hp <= 0) {
+            _hp = 0;
             Die();
         }
     }
@@ -154,7 +155,12 @@ public class Enemy : MonoBehaviour
 
     public void Die() 
     {
-        StartCoroutine(FadeOut(2f));
+        GameManager.Instance.Busyness++;
+        StartCoroutine(FadeOut(2f, () => 
+        {
+            GameManager.Instance.Busyness--;
+            Destroy(this);
+        }));
         IsDead = true;
         _enemyHand.DiscardHand();
         OnDeath();
@@ -196,7 +202,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    IEnumerator FadeOut(float aTime)
+    IEnumerator FadeOut(float aTime, Action onFinish)
     {
         float newAlphaValue = 0;
         float alpha = _image.color.a;
@@ -206,6 +212,8 @@ public class Enemy : MonoBehaviour
             _image.color = newColor;
             yield return null;
         }
+
+        onFinish();
     }
 
     public void ClearBlock()

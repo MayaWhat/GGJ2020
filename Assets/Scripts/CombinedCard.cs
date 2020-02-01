@@ -6,6 +6,7 @@ public class CombinedCard : Card
     {
         ApplyEffects();
         Split();
+        whenDone();
     }
 
     public void ApplyEffects() {
@@ -13,7 +14,6 @@ public class CombinedCard : Card
             GameManager.Instance.Enemy.TakeDamage(_value);
         } 
         else {
-            _playerEnergy.Energy -= _cost;
             _player.GainBlock(_value);
         }
     }
