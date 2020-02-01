@@ -17,6 +17,9 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private GameObject _hitMarker;
     private Image _hitMarkerImage;
+    [SerializeField]
+    private GameObject _mySpriteObject;
+    private Image _image;
 
     [SerializeField]
     private FMODUnity.StudioEventEmitter _damagedSound;
@@ -24,7 +27,6 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private FMODUnity.StudioEventEmitter _actingSound;
 
-    private Image _image;
     private Player _player;
     private GameObject _enemyHealthUI;
     public bool IsDead { get; private set; }
@@ -97,7 +99,7 @@ public class Enemy : MonoBehaviour
         _hp = _startingHp;
         _damage = _startingDamage;
         _player = FindObjectOfType<Player>();
-        _image = GetComponentInChildren<Image>();
+        _image = _mySpriteObject.GetComponentInChildren<Image>();
         _enemyHealthUI = GameObject.FindGameObjectWithTag("EnemyHealthUI");
         _enemyDrawPile = FindObjectOfType<EnemyDrawPile>();
         _enemyHand = FindObjectOfType<EnemyHand>();
