@@ -5,7 +5,6 @@ public class CombinedCard : Card
     protected override void DoEffect(Action whenDone)
     {
         ApplyEffects();
-        Split();
         whenDone();
     }
 
