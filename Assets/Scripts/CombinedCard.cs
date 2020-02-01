@@ -9,6 +9,8 @@ public class CombinedCard : Card
     }
 
     public void ApplyEffects() {
+        _playerEnergy.Energy -= _cost;
+
         if (_cardSymbol == CardSymbol.Attack) {
             GameManager.Instance.Enemy.TakeDamage(_value);
         } 

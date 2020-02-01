@@ -161,6 +161,14 @@ public class Hand : MonoBehaviour
         {
             _activeHalfCard = halfCard;
             UpdateHalfCardHighlighting();
+            return;
+        }
+
+        if(_activeHalfCard == halfCard)
+        {
+            _activeHalfCard = null;
+            UpdateHalfCardHighlighting();
+            return;
         }
 
         if(halfCard.IsLeftHalf != _activeHalfCard.IsLeftHalf) 
@@ -168,9 +176,13 @@ public class Hand : MonoBehaviour
             if(halfCard.IsLeftHalf) 
             {
                 Combine(halfCard, _activeHalfCard);
+                _activeHalfCard = null;
+                UpdateHalfCardHighlighting();
                 return;
             }
             Combine(_activeHalfCard, halfCard);
+            _activeHalfCard = null;
+            UpdateHalfCardHighlighting();
             return;
         }
 
@@ -199,11 +211,11 @@ public class Hand : MonoBehaviour
 
             if(halfCard != null) 
             {
-                if(_activeHalfCard.IsLeftHalf && !halfCard.IsLeftHalf)
+                if(_activeHalfCard.IsLeftHalf && !halfCard.IsLeftHalf && _activeHalfCard.Affordable)
                 {
                     halfCard.ChangeCardBack(Color.blue);
                 }
-                else if(!_activeHalfCard.IsLeftHalf && halfCard.IsLeftHalf)
+                else if(!_activeHalfCard.IsLeftHalf && halfCard.IsLeftHalf && halfCard.Affordable)
                 {
                     halfCard.ChangeCardBack(Color.blue);
                 }
