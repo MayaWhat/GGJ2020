@@ -14,6 +14,12 @@ public class Enemy : MonoBehaviour
     private int _damage;
     [SerializeField]
     private int _startingDamage;
+    [SerializeField]
+    private GameObject _hitMarker;
+    private Image _hitMarkerImage;
+    [SerializeField]
+    private GameObject _mySpriteObject;
+    private Image _image;
 
     [SerializeField]
     private FMODUnity.StudioEventEmitter _damagedSound;
@@ -21,7 +27,6 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private FMODUnity.StudioEventEmitter _actingSound;
 
-    private Image _image;
     private Player _player;
     private GameObject _enemyHealthUI;
     public bool IsDead { get; private set; }
@@ -94,10 +99,11 @@ public class Enemy : MonoBehaviour
         _hp = _startingHp;
         _damage = _startingDamage;
         _player = FindObjectOfType<Player>();
-        _image = GetComponentInChildren<Image>();
+        _image = _mySpriteObject.GetComponentInChildren<Image>();
         _enemyHealthUI = GameObject.FindGameObjectWithTag("EnemyHealthUI");
         _enemyDrawPile = FindObjectOfType<EnemyDrawPile>();
         _enemyHand = FindObjectOfType<EnemyHand>();
+        _hitMarkerImage = _hitMarker.GetComponent<Image>();
     }
 
     void Update()
@@ -148,6 +154,7 @@ public class Enemy : MonoBehaviour
         {
             _hp -= mitigatedDamageValue;
             StartCoroutine(FadeTo(0, 0.1f, true));
+            StartCoroutine(FadeHitMarker(1f, .1f, () => Invoke("FadeHitMarkerOut", 1f)));
         }
 
         Debug.Log($"Enemy struck with {damageValue} damage, mitigated to {mitigatedDamageValue}. New block {_block}. New hp {_hp}.");
@@ -155,6 +162,27 @@ public class Enemy : MonoBehaviour
         if (_hp <= 0) {
             _hp = 0;
             Die();
+        }
+    }
+
+    private void FadeHitMarkerOut()
+    {
+        StartCoroutine(FadeHitMarker(0, .4f, null));
+    }
+
+    IEnumerator FadeHitMarker(float newAlphaValue, float aTime, Action onFinish)
+    {
+        float alpha = _hitMarkerImage.color.a;
+        for (float t = 0.0f; t < 1.0f; t += Time.deltaTime / aTime)
+        {
+            Color newColor = new Color(1, 1, 1, Mathf.Lerp(alpha, newAlphaValue, t));
+            _hitMarkerImage.color = newColor;
+            yield return null;
+        }
+
+        if (onFinish != null)
+        {
+            onFinish();
         }
     }
 
