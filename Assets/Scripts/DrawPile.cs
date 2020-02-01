@@ -56,6 +56,11 @@ public class DrawPile : MonoBehaviour
         return cards.OrderBy(a => Random.Range(0, 1000)).ToList();
     }
 
+    public List<Transform> Shuffle(List<Transform> cards)
+    {
+        return cards.OrderBy(a => Random.Range(0, 1000)).ToList();
+    }
+
     public List<Transform> DrawCards(int drawAmount)
     {
         if (CardCount == 0)
@@ -91,13 +96,15 @@ public class DrawPile : MonoBehaviour
 
     private void GrabDiscardPile()
     {
-        var cardInDiscardPile = new List<Transform>();
+        var cardsInDiscardPile = new List<Transform>();
         foreach (Transform card in _discardPile.transform)
         {
-            cardInDiscardPile.Add(card);
+            cardsInDiscardPile.Add(card);
         }
         
-        foreach (var card in cardInDiscardPile)
+        cardsInDiscardPile = Shuffle(cardsInDiscardPile);
+
+        foreach (var card in cardsInDiscardPile)
         {
             card.SetParent(transform, false);
         }
