@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6225253939193167950}
   - component: {fileID: 6225253939193167951}
   - component: {fileID: 6225253939193167948}
-  - component: {fileID: 1328209784398363911}
+  - component: {fileID: 5870744960093585506}
   m_Layer: 5
   m_Name: EndTurn
   m_TagString: Untagged
@@ -129,11 +129,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-<<<<<<< Updated upstream
 --- !u!114 &5870744960093585506
-=======
---- !u!114 &1328209784398363911
->>>>>>> Stashed changes
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
