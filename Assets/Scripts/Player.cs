@@ -6,13 +6,25 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {    
     [SerializeField]
-    private int _hp;
-
-    [SerializeField]
     private int _startingHp;
 
     [SerializeField]
+    private int _hp;
+
+    [SerializeField]
     private int _currentBlock;
+
+    public int Health {
+        get {
+            return _hp;
+        }
+    }
+
+    public int StartingHealth {
+        get {
+            return _startingHp;
+        }
+    }
     
     // Start is called before the first frame update
     void Start()

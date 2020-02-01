@@ -17,9 +17,19 @@ public class Enemy : MonoBehaviour
 
     private Player _player;
 
-    public int Health {
-        get {
+    public int Health 
+    {
+        get 
+        {
             return _hp;
+        }
+    }
+
+    public int StartingHealth
+    {
+        get
+        {
+            return _startingHp;
         }
     }
     
