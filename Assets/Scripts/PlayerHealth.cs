@@ -43,7 +43,7 @@ public class PlayerHealth : MonoBehaviour
 
     public void UpdateText()
     {
-        _healthText.text = $"{_player.Health.ToString()} I {_player.StartingHealth.ToString()}";
+        _healthText.text = $"{Math.Max(0, _player.Health).ToString()} I {_player.StartingHealth.ToString()}";
         _blockText.text = _player.Block.ToString();
     }
 
