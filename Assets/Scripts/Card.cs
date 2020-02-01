@@ -131,6 +131,10 @@ public abstract class Card : MonoBehaviour
         set
         {
             _cost = value;
+            if (_cardCostObject != null) {
+                _cardCostText = _cardCostObject.GetComponent<Text>();
+                _cardCostText.text = _cost.ToString();
+            }
         }
     }
     
@@ -240,6 +244,7 @@ public abstract class Card : MonoBehaviour
         var rightHalf = rightHalfObject.GetComponent<HalfCardRight>();
 
         leftHalf.SetValue(_value);
+        leftHalf.Cost = _cost;
         leftHalf.IsLeftHalf = true;
         rightHalf.SetSymbol(_cardSymbol);
         leftHalf.Clickable = false;
