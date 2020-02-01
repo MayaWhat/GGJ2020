@@ -144,7 +144,8 @@ MonoBehaviour:
   _value: 6
   _cardSymbol: 1
   _cardValueObject: {fileID: 7271334000240982397}
-  _cardSymbolObject: {fileID: 0}
+  _cardSymbolObject: {fileID: 2623088515775485128}
+  _cardBackObject: {fileID: 5700145576044348400}
 --- !u!114 &-8177137896980173648
 MonoBehaviour:
   m_ObjectHideFlags: 0

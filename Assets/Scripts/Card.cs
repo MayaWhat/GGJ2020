@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.UI;
 
 public abstract class Card : MonoBehaviour
@@ -15,9 +18,15 @@ public abstract class Card : MonoBehaviour
     [SerializeField]
     protected GameObject _cardSymbolObject;
     protected Image _cardSymbolImage;
+    [SerializeField]
+    protected GameObject _cardBackObject;
+    protected Image _cardBackImage;
     protected PlayerEnergy _playerEnergy;
 
     protected DiscardPile _discardPile;
+
+    protected Canvas _canvas;
+    protected ScreenFlash _screenFlash;
 
     // Start is called before the first frame update
     protected void Start()
@@ -40,7 +49,14 @@ public abstract class Card : MonoBehaviour
             }
             var sprite = Resources.Load<Sprite>("Sprites/Cards/Icons/" + symbolPath);
             _cardSymbolImage.sprite = sprite;
-        }        
+        }   
+
+        if (_cardBackObject != null) {
+            _cardBackImage = _cardBackObject.GetComponent<Image>();
+        }
+
+        _canvas = FindObjectOfType<Canvas>();     
+        _screenFlash = FindObjectOfType<ScreenFlash>();
     }
 
     // Update is called once per frame
@@ -51,7 +67,67 @@ public abstract class Card : MonoBehaviour
         }
     }
 
-    public abstract void PlayMe();
+    public void PlayMe()
+    {
+        _playerEnergy.Energy -= _cost;
+        StartCoroutine(AnimatePlay());
+    }
+
+    private IEnumerator AnimatePlay()
+    {
+        var position = transform.position;
+
+        transform.SetParent(_canvas.transform);
+
+        transform.position = position;
+
+        var startPosition = transform.localPosition;       
+
+        var moveTime = 0.1f;
+
+        for (var t = 0.0f; t < 1.0f; t += Time.deltaTime / moveTime)
+        {
+            var movement = 80f * t;
+            transform.localPosition = startPosition + new Vector3(0f, movement, 0f);
+
+            yield return null;
+        }
+
+        startPosition += new Vector3(0f, 80f, 0f);
+        var shakeTime = 1f;
+        for (var t = 0.0f; t < 1.0f; t += Time.deltaTime / shakeTime)
+        {
+            transform.localPosition = startPosition + new Vector3
+            (
+                UnityEngine.Random.Range(0f, 5f),
+                UnityEngine.Random.Range(0f, 5f),
+                UnityEngine.Random.Range(0f, 5f)
+            );
+
+            yield return null;
+        }
+
+        transform.localPosition = startPosition;
+
+        _cardBackImage.enabled = false;
+        _cardSymbolImage.enabled = false;
+        _cardValueImage.enabled = false;
+
+        var halves = Split();
+        _screenFlash.Flash();
+
+        // TODO: remove once the card effects are animated
+        yield return new WaitForSeconds(1f);
+
+        DoEffect(() =>
+        {
+            halves.LeftHalf.transform.SetParent(_discardPile.transform);
+            halves.RightHalf.transform.SetParent(_discardPile.transform);
+            GameObject.Destroy(transform.gameObject);
+        });
+    }
+
+    protected abstract void DoEffect(Action whenDone);
 
     public virtual bool CanBePlayed() 
     {
@@ -68,7 +144,7 @@ public abstract class Card : MonoBehaviour
         PlayMe();
     }
 
-    public void Split() {
+    public (HalfCardLeft LeftHalf, HalfCardRight RightHalf) Split() {
         var leftHalfObject = Instantiate(Resources.Load("Prefabs/HalfCardLeft")) as GameObject;
         var rightHalfObject = Instantiate(Resources.Load("Prefabs/HalfCardRight")) as GameObject;
 
@@ -78,9 +154,12 @@ public abstract class Card : MonoBehaviour
         leftHalf.SetValue(_value);
         rightHalf.SetSymbol(_cardSymbol);
 
-        leftHalf.transform.SetParent(_discardPile.transform);
-        rightHalf.transform.SetParent(_discardPile.transform);
-        GameObject.Destroy(transform.gameObject);
+        leftHalf.transform.SetParent(_canvas.transform);
+        leftHalf.transform.position = transform.position + new Vector3(-10f, 0f, 0f);
+        rightHalf.transform.SetParent(_canvas.transform);
+        rightHalf.transform.position = transform.position + new Vector3(10f, 0f, 0f);
+
+        return (leftHalf, rightHalf);
     }
 
     public enum CardSymbol 

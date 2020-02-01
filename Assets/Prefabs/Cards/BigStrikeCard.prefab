@@ -318,8 +318,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _cost: 1
   _value: 8
-  _isAttack: 1
+  _cardSymbol: 0
   _cardValueObject: {fileID: 2278150398457438380}
+  _cardSymbolObject: {fileID: 271993895024566999}
+  _cardBackObject: {fileID: 3696552735181451738}
 --- !u!114 &7092442293794503657
 MonoBehaviour:
   m_ObjectHideFlags: 0
