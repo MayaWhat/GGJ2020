@@ -26,7 +26,7 @@ public class EnemyHand : MonoBehaviour
         {
             card.transform.SetParent(transform, false);
         }
-        Debug.Log($"Hand drawn. {_handSize} cards.");
+        Debug.Log($"Enemy Hand drawn. {_handSize} cards.");
     }
 
     public void DiscardHand()
@@ -41,11 +41,26 @@ public class EnemyHand : MonoBehaviour
         {
             _discardPile.Add(card);
         }
-        Debug.Log("Hand discarded.");
+        Debug.Log("Enemy Hand discarded.");
     }
 
     public void Add(Transform card)
     {
         card.SetParent(transform, false);
+    }
+
+    public void PlayAllCards() 
+    {
+        var cardsToPlay = new List<Transform>();
+
+        foreach(Transform cardObject in transform)
+        {
+            cardsToPlay.Add(cardObject);
+        }
+
+        foreach(Transform cardObject in cardsToPlay)
+        {
+            cardObject.GetComponent<EnemyCard>().PlayMe();
+        }
     }
 }

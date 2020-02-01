@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
@@ -46,6 +47,13 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    private EnemyDrawPile _enemyDrawPile;
+
+    [SerializeField]
+    private EnemyDeck _startDeck;
+
+    private EnemyHand _enemyHand;
+
     public void Appear()
     {
         _spriteRenderer.enabled = true;
@@ -53,6 +61,9 @@ public class Enemy : MonoBehaviour
         {
             uiElement.gameObject.SetActive(true);
         }
+
+        _enemyDrawPile.Init(_startDeck.GetCards());
+        _enemyHand.DrawHand();
     }
     
     // Start is called before the first frame update
@@ -63,18 +74,18 @@ public class Enemy : MonoBehaviour
         _player = FindObjectOfType<Player>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _enemyHealthUI = GameObject.FindGameObjectWithTag("EnemyHealthUI");
+        _enemyDrawPile = FindObjectOfType<EnemyDrawPile>();
+        _enemyHand = FindObjectOfType<EnemyHand>();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void DrawHand()
     {
-        
+        _enemyHand.DrawHand();
     }
 
     public void DoTurn()
     {
-        _player.TakeDamage(_damage);
-        _damage += 2;
+        _enemyHand.PlayAllCards();
 
         Debug.Log("Enemy did turn.");
     }

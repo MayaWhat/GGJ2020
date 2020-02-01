@@ -97,3 +97,5 @@ MonoBehaviour:
   _startingHp: 20
   _damage: 0
   _startingDamage: 3
+  _startDeck: {fileID: 6958495353694985435, guid: bcded72253154e04a81d217ab430060d,
+    type: 3}

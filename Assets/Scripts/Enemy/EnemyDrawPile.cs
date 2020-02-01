@@ -65,12 +65,21 @@ public class EnemyDrawPile : MonoBehaviour
 
         for (var i = 0; i < drawAmount; i++)
         {
-            var drawnCard = cardsInDrawPile.FirstOrDefault();
-
-            if (drawnCard == null)
-            {
+            if (!cardsInDrawPile.Any()) {
                 GrabDiscardPile();
+
+                cardsInDrawPile = new List<Transform>();
+                foreach (Transform card in transform)
+                {
+                    cardsInDrawPile.Add(card);
+                }
+
+                if(!cardsInDrawPile.Any()) {
+                    return drawnCards;
+                }
             }
+
+            var drawnCard = cardsInDrawPile.FirstOrDefault();
 
             drawnCards.Add(drawnCard);
             cardsInDrawPile.Remove(drawnCard);
