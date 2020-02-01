@@ -6,16 +6,16 @@ public class Enemy : MonoBehaviour
 {    
     [SerializeField]
     private int _hp;
-
     [SerializeField]
     private int _startingHp;
-
     [SerializeField]
     private int _damage;
     [SerializeField]
     private int _startingDamage;
 
+    private SpriteRenderer _spriteRenderer;
     private Player _player;
+    private GameObject _enemyHealthUI;
 
     public int Health 
     {
@@ -46,6 +46,15 @@ public class Enemy : MonoBehaviour
             _block = value;
         }
     }
+
+    public void Appear()
+    {
+        _spriteRenderer.enabled = true;
+        foreach (Transform uiElement in _enemyHealthUI.transform)
+        {
+            uiElement.gameObject.SetActive(true);
+        }
+    }
     
     // Start is called before the first frame update
     void Start()
@@ -53,6 +62,8 @@ public class Enemy : MonoBehaviour
         _hp = _startingHp;
         _damage = _startingDamage;
         _player = FindObjectOfType<Player>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+        _enemyHealthUI = GameObject.FindGameObjectWithTag("EnemyHealthUI");
     }
 
     // Update is called once per frame

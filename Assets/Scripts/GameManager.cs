@@ -37,6 +37,7 @@ public class GameManager : MonoBehaviour
     {
         _gameStarted = true;
         _hand.DrawHand();
+        _enemy.Appear();
     }
 
     public void PlayerEndedTurn()
