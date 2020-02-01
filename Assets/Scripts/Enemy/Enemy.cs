@@ -154,7 +154,11 @@ public class Enemy : MonoBehaviour
 
     public void Die() 
     {
-        StartCoroutine(FadeOut(2f));
+        GameManager.Instance.Busyness++;
+        StartCoroutine(FadeOut(2f, () => 
+        {
+            GameManager.Instance.Busyness--;
+        }));
         IsDead = true;
         _enemyHand.DiscardHand();
         OnDeath();
@@ -196,7 +200,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    IEnumerator FadeOut(float aTime)
+    IEnumerator FadeOut(float aTime, Action onFinish)
     {
         float newAlphaValue = 0;
         float alpha = _image.color.a;
@@ -206,6 +210,8 @@ public class Enemy : MonoBehaviour
             _image.color = newColor;
             yield return null;
         }
+
+        onFinish();
     }
 
     public void ClearBlock()

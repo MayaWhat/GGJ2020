@@ -111,6 +111,7 @@ public abstract class Card : MonoBehaviour
     
     public void PlayMe()
     {
+        GameManager.Instance.Busyness++;
         _playerEnergy.Energy -= _cost;
         StartCoroutine(AnimatePlay());
     }
@@ -166,6 +167,7 @@ public abstract class Card : MonoBehaviour
             halves.LeftHalf.transform.SetParent(_discardPile.transform);
             halves.RightHalf.transform.SetParent(_discardPile.transform);
             GameObject.Destroy(transform.gameObject);
+            GameManager.Instance.Busyness--;
         });
     }
 

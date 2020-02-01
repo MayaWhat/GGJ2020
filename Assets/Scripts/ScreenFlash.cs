@@ -29,8 +29,24 @@ public class ScreenFlash : MonoBehaviour
     IEnumerator AnimateFlash()
     {
         transform.SetAsLastSibling();
+        _image.color = new Color(1f, 1f, 1f, 0f);
         _image.enabled = true;
-        yield return new WaitForSeconds(0.05f);
+
+        var totalTime = 0.05f;
+        for (var t = 0.0f; t < 1.0f; t += Time.deltaTime / totalTime)
+        {
+            _image.color = new Color(1f, 1f, 1f, Mathf.Lerp(0f, 1f, t));
+
+            yield return null;
+        }
+
+        for (var t = 0.0f; t < 1.0f; t += Time.deltaTime / totalTime)
+        {
+            _image.color = new Color(1f, 1f, 1f, Mathf.Lerp(1f, 0f, t));
+
+            yield return null;
+        }
+
         _image.enabled = false;
     }
 }
