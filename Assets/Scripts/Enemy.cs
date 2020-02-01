@@ -48,6 +48,23 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    private static Enemy _instance;
+
+    public static Enemy Instance
+	{
+		get
+		{
+			if (_instance == null)
+			{
+				_instance = FindObjectOfType<Enemy>();
+			}
+			return _instance;
+		}
+	}
+    
+	public delegate void DeathAction();
+	public static event DeathAction OnDeath;
+
     public void Appear()
     {
         _spriteRenderer.enabled = true;
@@ -97,6 +114,7 @@ public class Enemy : MonoBehaviour
     {
         StartCoroutine(FadeOut(2f));
         IsDead = true;
+        OnDeath();
         Debug.Log("I, the enemy, am dead :(");
     }
 

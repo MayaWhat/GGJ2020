@@ -20,7 +20,7 @@ public class EndTurn : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!_hand.CanPlaySomething() && !Player.Instance.IsDead) {
+        if (!_hand.CanPlaySomething() && !Player.Instance.IsDead && !Enemy.Instance.IsDead) {
             GetComponent<Image>().color = Color.blue; 
         }
         else 
@@ -38,13 +38,20 @@ public class EndTurn : MonoBehaviour
         _button.interactable = false;
     }
 
+    private void EnemyDied()
+    {
+        _button.interactable = false;
+    }
+
     void OnEnable()
 	{
 		Player.OnDeath += PlayerDied;
+		Enemy.OnDeath += EnemyDied;
 	}
 
 	void OnDisable()
 	{
 		Player.OnDeath -= PlayerDied;
+		Enemy.OnDeath += EnemyDied;
 	}
 }

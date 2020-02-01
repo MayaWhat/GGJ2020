@@ -39,7 +39,7 @@ public abstract class Card : MonoBehaviour
 
     public bool CanBePlayed() 
     {
-        return _cost <= _playerEnergy.Energy && !Player.Instance.IsDead;
+        return _cost <= _playerEnergy.Energy && !Player.Instance.IsDead && !Enemy.Instance.IsDead;
     }
 
     public void AttemptToPlay()
