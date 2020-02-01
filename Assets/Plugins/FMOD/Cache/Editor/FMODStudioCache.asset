@@ -36,6 +36,24 @@ MonoBehaviour:
   LoadResult: 0
   FileSizes: []
   Exists: 1
+--- !u!114 &-1411265938698872073
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.bank
+  m_EditorClassIdentifier: 
+  Path: Audio/ggj2020/Build/Desktop/Master.bank
+  SubDir: 
+  lastModified: 637161658874589030
+  LoadResult: 0
+  FileSizes: []
+  Exists: 1
 --- !u!114 &-584039707022671965
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -68,16 +86,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EditorBanks:
   - {fileID: 5729266552947826182}
-  - {fileID: -2419899660258435109}
+  - {fileID: -1411265938698872073}
   EditorEvents:
   - {fileID: 4079527788557920287}
   - {fileID: 3409426586193556781}
   EditorParameters: []
   MasterBanks:
-  - {fileID: -2419899660258435109}
+  - {fileID: -1411265938698872073}
   StringsBanks:
   - {fileID: 5729266552947826182}
-  stringsBankWriteTime: 637161660338515748
+  stringsBankWriteTime: 637161658874599026
   cacheVersion: 3
 --- !u!114 &1600204841347059047
 MonoBehaviour:
@@ -112,7 +130,7 @@ MonoBehaviour:
   Path: event:/Music/Play music
   guid: f7e00ac986b5944684b7235bdbd05f1a
   Banks:
-  - {fileID: -2419899660258435109}
+  - {fileID: -1411265938698872073}
   IsStream: 0
   Is3D: 0
   IsOneShot: 0
@@ -135,7 +153,7 @@ MonoBehaviour:
   Path: event:/Card sounds/Draw card
   guid: 765d9277bc6967499a5c22a561540ccc
   Banks:
-  - {fileID: -2419899660258435109}
+  - {fileID: -1411265938698872073}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -175,7 +193,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Path: Audio/ggj2020/Build/Desktop/Master.strings.bank
   SubDir: 
-  lastModified: 637161660338515748
+  lastModified: 637161658874599026
   LoadResult: 0
   FileSizes:
   - Name: Desktop
