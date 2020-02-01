@@ -29,11 +29,6 @@ public class GameManager : MonoBehaviour
         {
             StartGame();
         }
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            PlayerEndedTurn();
-        }
     }
 
     private void StartGame()
@@ -42,7 +37,7 @@ public class GameManager : MonoBehaviour
         _hand.DrawHand();
     }
 
-    private void PlayerEndedTurn()
+    public void PlayerEndedTurn()
     {
         _hand.DiscardHand();
         _enemy.DoTurn();
