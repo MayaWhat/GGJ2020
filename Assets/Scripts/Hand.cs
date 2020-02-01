@@ -38,6 +38,8 @@ public class Hand : MonoBehaviour
             cards[i] = card;
         }
 
+        _activeHalfCard = null;
+        UpdateHalfCardHighlighting();
         StartCoroutine(DrawHandAnimate(cards, onFinish));
         Debug.Log($"Hand drawn. {_handSize} cards.");
     }
@@ -94,6 +96,9 @@ public class Hand : MonoBehaviour
 
     public void DiscardHand()
     {
+        _activeHalfCard = null;
+        UpdateHalfCardHighlighting();
+
         var cardsInHand = new List<Transform>();
         foreach (Transform card in transform)
         {
