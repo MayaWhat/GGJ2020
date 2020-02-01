@@ -6,6 +6,7 @@ TagManager:
   tags:
   - DrawPile
   - CardBackground
+  - EnemyHealthUI
   layers:
   - Default
   - TransparentFX
