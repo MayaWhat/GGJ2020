@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     private DrawPile _drawPile;
     private Hand _hand;
     private Enemy _enemy;
+    private Player _player;
 
     private bool _gameStarted = false;
 
@@ -18,6 +19,7 @@ public class GameManager : MonoBehaviour
         _hand = FindObjectOfType<Hand>();        
         _drawPile = FindObjectOfType<DrawPile>();
         _enemy = FindObjectOfType<Enemy>();
+        _player = FindObjectOfType<Player>();
 
         _drawPile.Init(_startDeck.GetCards());
     }
@@ -41,6 +43,7 @@ public class GameManager : MonoBehaviour
     {
         _hand.DiscardHand();
         _enemy.DoTurn();
+        _player.StartTurn();
         _hand.DrawHand();
     }
 }
