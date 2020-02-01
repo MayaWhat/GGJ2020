@@ -193,6 +193,8 @@ public abstract class Card : MonoBehaviour
             GameObject.Destroy(transform.gameObject);
             GameObject.Destroy(_splitParticles);
             GameManager.Instance.Busyness--;
+            halves.LeftHalf.Clickable = true;
+            halves.RightHalf.Clickable = true;
         });
     }
 
@@ -247,7 +249,7 @@ public abstract class Card : MonoBehaviour
         return (leftHalf, rightHalf);
     }
 
-    public enum CardSymbol 
+    public enum CardSymbol
     {
         Attack = 0,
         Block = 1
