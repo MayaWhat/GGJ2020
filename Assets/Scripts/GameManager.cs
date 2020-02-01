@@ -117,8 +117,7 @@ public class GameManager : MonoBehaviour
 
         if (_player.Health > 0)
         {
-            Enemy.DrawHand();
-            DrawCards();
+            Enemy.DrawHand(DrawCards);
         }
         else
         {

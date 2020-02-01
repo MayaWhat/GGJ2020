@@ -40,8 +40,6 @@ public class Hand : MonoBehaviour
             card.SetParent(transform, false);
             card.localPosition = new Vector3(0f, -250f, 0f);
             cards[i] = card;
-
-            //x += 170f;
         }
 
         StartCoroutine(DrawHandAnimate(cards, onFinish));
@@ -51,6 +49,7 @@ public class Hand : MonoBehaviour
     IEnumerator DrawHandAnimate(RectTransform[] cards, Action onFinish)
     {
         var yMoveTime = 0.2f;
+        _drawCardSound.Play();
         for (var t = 0.0f; t < 1.0f; t += Time.deltaTime / yMoveTime)
         {
             var x = -(340f * Mathf.Min(t, 1.0f));
@@ -66,7 +65,11 @@ public class Hand : MonoBehaviour
 
         for (var i = cards.Length - 1; i >= 0; i--)
         {
-            _drawCardSound.Play();
+            if(i > 0)
+            {
+                _drawCardSound.Play();
+            }
+            
             var xMoveTime = 0.06f * i;
             if(xMoveTime > 0f)
             {
@@ -81,6 +84,8 @@ public class Hand : MonoBehaviour
             }
 
             cards[i].localPosition = new Vector3(-340f + (i * 140f), 0f, 0f);
+
+            yield return new WaitForSeconds(0.05f);
         }
 
         onFinish();

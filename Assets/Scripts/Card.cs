@@ -17,12 +17,6 @@ public abstract class Card : MonoBehaviour
 
     protected DiscardPile _discardPile;
 
-    [SerializeField]
-    protected HalfCardLeft _halfCardLeft;
-
-    [SerializeField]
-    protected HalfCardRight _halfCardRight;
-
     // Start is called before the first frame update
     protected void Start()
     {
@@ -60,9 +54,11 @@ public abstract class Card : MonoBehaviour
     }
 
     public void Split() {
+        var leftHalfObject = Instantiate(Resources.Load("Prefabs/HalfCardLeft")) as GameObject;
+        var rightHalfObject = Instantiate(Resources.Load("Prefabs/HalfCardRight")) as GameObject;
 
-        var leftHalf = Instantiate(_halfCardLeft);
-        var rightHalf = Instantiate(_halfCardRight);
+        var leftHalf = leftHalfObject.GetComponent<HalfCardLeft>();
+        var rightHalf = rightHalfObject.GetComponent<HalfCardRight>();
 
         leftHalf.SetValue(_value);
         rightHalf.SetSymbol(_cardSymbol);

@@ -113,14 +113,13 @@ public class Enemy : MonoBehaviour
 
         StartCoroutine(FadeIn(0.75f, () => {
             _enemyDrawPile.Init(_startDeck.GetCards());
-            DrawHand();
-            OnAppear();
+            DrawHand(() => OnAppear());
         }));
     }
 
-    public void DrawHand()
+    public void DrawHand(Action onFinish)
     {
-        _enemyHand.DrawHand();
+        _enemyHand.DrawHand(onFinish);
     }
 
     public void DoTurn()
