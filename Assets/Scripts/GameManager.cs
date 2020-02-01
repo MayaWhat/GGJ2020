@@ -27,6 +27,12 @@ public class GameManager : MonoBehaviour
         set;
     }
 
+    public SoundManager Sounds
+    {
+        get;
+        private set;
+    }
+
     public GameplayPhase Phase
     {
         get;
@@ -53,6 +59,7 @@ public class GameManager : MonoBehaviour
 
         Phase = GameplayPhase.Calm;
 
+        Sounds = FindObjectOfType<SoundManager>();
         _canvas = FindObjectOfType<Canvas>();
         _hand = FindObjectOfType<Hand>();        
         _drawPile = FindObjectOfType<DrawPile>();
