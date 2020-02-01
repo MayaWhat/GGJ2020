@@ -25,6 +25,18 @@ public class Player : MonoBehaviour
             return _startingHp;
         }
     }
+
+    public int Block
+    {
+        get
+        {
+            return _currentBlock;
+        }
+        set 
+        {
+            _currentBlock = value;
+        }
+    }
     
     // Start is called before the first frame update
     void Start()
