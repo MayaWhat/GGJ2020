@@ -72,7 +72,10 @@ public class Enemy : MonoBehaviour
 	public delegate void DeathAction();
 	public event DeathAction OnDeath;
 
-    public bool Appear
+    public delegate void AppearAction();
+    public event AppearAction OnAppear;
+
+    public bool ShouldAppear
     {
         get;
         set;
@@ -92,17 +95,26 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
-        if (Appear && !_spriteRenderer.enabled)
+        if (ShouldAppear && !_spriteRenderer.enabled)
         {
-            _spriteRenderer.enabled = true;
-            foreach (Transform uiElement in _enemyHealthUI.transform)
-            {
-                uiElement.gameObject.SetActive(true);
-            }
+            Appear();
+        }
+    }
 
+    private void Appear()
+    {
+        _spriteRenderer.enabled = true;
+        _spriteRenderer.color = new Color(1, 1, 1, 0f);
+        foreach (Transform uiElement in _enemyHealthUI.transform)
+        {
+            uiElement.gameObject.SetActive(true);
+        }
+
+        StartCoroutine(FadeIn(0.75f, () => {
             _enemyDrawPile.Init(_startDeck.GetCards());
             DrawHand();
-        }
+            OnAppear();
+        }));
     }
 
     public void DrawHand()
@@ -149,6 +161,20 @@ public class Enemy : MonoBehaviour
         Debug.Log("I, the enemy, am dead :(");
     }
 
+    IEnumerator FadeIn(float aTime, Action onFinish)
+    {
+        float newAlphaValue = 1f;
+        float alpha = _spriteRenderer.color.a;
+        for (float t = 0.0f; t < 1.0f; t += Time.deltaTime / aTime)
+        {
+            Color newColor = new Color(1, 1, 1, Mathf.Lerp(alpha, newAlphaValue, t));
+            _spriteRenderer.color = newColor;
+            yield return null;
+        }
+
+        onFinish();
+    }
+
     IEnumerator FadeTo(float aValue, float aTime, bool toRed)
     {
         float gb = _spriteRenderer.color.g;
@@ -185,5 +211,6 @@ public class Enemy : MonoBehaviour
     public void ClearBlock()
     {
         _block = 0;
+
     }
 }

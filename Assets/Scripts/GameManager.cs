@@ -73,12 +73,10 @@ public class GameManager : MonoBehaviour
         }
 
         Enemy = Instantiate(selectedEnemy).GetComponent<Enemy>();
-        Enemy.Appear = true;
+        Enemy.ShouldAppear = true;
         Enemy.OnDeath += EnemyDefeated;
-
+        Enemy.OnAppear += DrawCards;
         Debug.Log("Spawned new enemy");
-
-        DrawCards();
     }
 
     private void DrawCards()
@@ -86,9 +84,11 @@ public class GameManager : MonoBehaviour
         Phase = GameplayPhase.DrawCards;
 
         _player.StartTurn();
-        _hand.DrawHand();
         _playerEnergy.ResetEnergy();
-        PlayCards();
+        _hand.DrawHand(() =>
+        {
+            PlayCards();
+        });
     }
 
     private void PlayCards()
