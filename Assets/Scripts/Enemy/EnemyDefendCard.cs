@@ -2,8 +2,7 @@
 {
     public override void PlayMe()
     {
-        var enemy = FindObjectOfType<Enemy>();
-        enemy.GainBlock(_value);
+        GameManager.Instance.Enemy.GainBlock(_value);
         transform.SetParent(_discardPile.transform, false);
     }
 }

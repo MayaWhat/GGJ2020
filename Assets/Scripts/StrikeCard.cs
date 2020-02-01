@@ -19,8 +19,7 @@ public class StrikeCard : Card
     public override void PlayMe()
     {
         _playerEnergy.Energy -= _cost;
-        var enemy = FindObjectOfType<Enemy>();
-        enemy.TakeDamage(_value);        
+        GameManager.Instance.Enemy.TakeDamage(_value);        
         transform.SetParent(_discardPile.transform, false);
         _discardPile.UpdateUIText();
     }

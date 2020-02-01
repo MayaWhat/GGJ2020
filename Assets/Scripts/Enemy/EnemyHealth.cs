@@ -21,7 +21,7 @@ public class EnemyHealth : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //_enemy = FindObjectOfType<Enemy>();
+        
     }
 
     // Update is called once per frame
