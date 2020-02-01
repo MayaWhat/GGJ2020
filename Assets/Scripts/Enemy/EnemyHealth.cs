@@ -39,7 +39,7 @@ public class EnemyHealth : MonoBehaviour
 
         // it's not super efficient to do this every Update but ez to do now instead of having to write something
         // that detects when a new enemy is added and updating then
-        _healthSlider.maxValue = GameManager.Instance.Enemy.Health;
+        _healthSlider.maxValue = GameManager.Instance.Enemy.StartingHealth;
         _blockSlider.maxValue = GameManager.Instance.Enemy.StartingHealth;
         _healthSlider.enabled = true;
         _blockSlider.enabled = true;
