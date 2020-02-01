@@ -1,6 +1,8 @@
-﻿public class CombinedCard : Card
+﻿using System;
+
+public class CombinedCard : Card
 {
-    public override void PlayMe()
+    protected override void DoEffect(Action whenDone)
     {
         if (_cardSymbol == CardSymbol.Attack) {
             GameManager.Instance.Enemy.TakeDamage(_value);
