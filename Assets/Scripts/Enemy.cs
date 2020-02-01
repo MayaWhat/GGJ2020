@@ -16,6 +16,7 @@ public class Enemy : MonoBehaviour
     private SpriteRenderer _spriteRenderer;
     private Player _player;
     private GameObject _enemyHealthUI;
+    public bool IsDead { get; private set; }
 
     public int Health 
     {
@@ -92,7 +93,10 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    public void Die() {
+    public void Die() 
+    {
+        StartCoroutine(FadeOut(2f));
+        IsDead = true;
         Debug.Log("I, the enemy, am dead :(");
     }
 
@@ -114,6 +118,18 @@ public class Enemy : MonoBehaviour
         if (!toRed)
         {
             _spriteRenderer.color = new Color(1, 1, 1, 1);
+        }
+    }
+
+    IEnumerator FadeOut(float aTime)
+    {
+        float newAlphaValue = 0;
+        float alpha = _spriteRenderer.color.a;
+        for (float t = 0.0f; t < 1.0f; t += Time.deltaTime / aTime)
+        {
+            Color newColor = new Color(1, 1, 1, Mathf.Lerp(alpha, newAlphaValue, t));
+            _spriteRenderer.color = newColor;
+            yield return null;
         }
     }
 
