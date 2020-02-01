@@ -48,14 +48,14 @@ public class EnemyDrawPile : MonoBehaviour
         return cards.OrderBy(a => Random.Range(0, 1000)).ToList();
     }
 
-    public Transform DrawCard()
+    public RectTransform DrawCard()
     {
         if (CardCount == 0)
         {
             GrabDiscardPile();
         }
         
-        return transform.GetChild(0);
+        return (RectTransform)transform.GetChild(0);
     }
 
     private void GrabDiscardPile()
