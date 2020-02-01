@@ -30,6 +30,8 @@ public abstract class Card : MonoBehaviour
     protected Canvas _canvas;
     protected ScreenFlash _screenFlash;
 
+    private bool _currentlyResolving = false;
+
     // Start is called before the first frame update
     protected void Start()
     {
@@ -119,6 +121,7 @@ public abstract class Card : MonoBehaviour
     
     public void PlayMe()
     {
+        _currentlyResolving = true;
         GameManager.Instance.Busyness++;
         _playerEnergy.Energy -= _cost;
         StartCoroutine(AnimatePlay());
@@ -183,7 +186,11 @@ public abstract class Card : MonoBehaviour
 
     public virtual bool CanBePlayed() 
     {
-        return _cost <= _playerEnergy.Energy && GameManager.Instance.Phase == GameplayPhase.PlayCards && !Player.Instance.IsDead && (!GameManager.Instance.Enemy?.IsDead ?? false);
+        return _cost <= _playerEnergy.Energy 
+            && GameManager.Instance.Phase == GameplayPhase.PlayCards 
+            && !Player.Instance.IsDead 
+            && (!GameManager.Instance.Enemy?.IsDead ?? false)
+            && !_currentlyResolving;
     }
 
     public virtual void AttemptToPlay()
