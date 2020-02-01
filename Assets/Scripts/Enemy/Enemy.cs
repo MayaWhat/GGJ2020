@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
@@ -90,6 +89,11 @@ public class Enemy : MonoBehaviour
         if (_hp <= 0) {
             Die();
         }
+    }
+
+    public void GainBlock(int block)
+    {
+        Block += block;
     }
 
     public void Die() {
