@@ -16,14 +16,18 @@ public abstract class Card : MonoBehaviour
     protected GameObject _cardSymbolObject;
     protected Image _cardSymbolImage;
     protected PlayerEnergy _playerEnergy;
-
     protected DiscardPile _discardPile;
+    protected Hand _playerHand;
+
+    protected Player _player;
 
     // Start is called before the first frame update
     protected void Start()
     {
         _discardPile = FindObjectOfType<DiscardPile>();
         _playerEnergy = FindObjectOfType<PlayerEnergy>();
+        _playerHand = FindObjectOfType<Hand>();
+        _player = FindObjectOfType<Player>();
 
         if (_cardValueObject != null) {
             _cardValueImage = _cardValueObject.GetComponent<Image>();
@@ -51,6 +55,44 @@ public abstract class Card : MonoBehaviour
         }
     }
 
+    public void SetValue(int value) 
+    {
+        _value = value;
+    }
+
+    public int Value
+    {
+        get
+        {
+            return _value;
+        }
+    }
+
+    public CardSymbol Symbol
+    {
+        get
+        {
+            return _cardSymbol;
+        }
+    }
+
+    public void SetSymbol (CardSymbol symbol)
+    {
+        _cardSymbol = symbol;
+    }
+
+    public int Cost
+    {
+        get
+        {
+            return _cost;
+        }
+        set
+        {
+            _cost = value;
+        }
+    }
+
     public abstract void PlayMe();
 
     public virtual bool CanBePlayed() 
@@ -58,7 +100,7 @@ public abstract class Card : MonoBehaviour
         return _cost <= _playerEnergy.Energy && GameManager.Instance.Phase == GameplayPhase.PlayCards && !Player.Instance.IsDead && !Enemy.Instance.IsDead;
     }
 
-    public void AttemptToPlay()
+    public virtual void AttemptToPlay()
     {
         if (!CanBePlayed()) {
             Debug.Log("You can't do that!");
@@ -76,6 +118,7 @@ public abstract class Card : MonoBehaviour
         var rightHalf = rightHalfObject.GetComponent<HalfCardRight>();
 
         leftHalf.SetValue(_value);
+        leftHalf.IsLeftHalf = true;
         rightHalf.SetSymbol(_cardSymbol);
 
         leftHalf.transform.SetParent(_discardPile.transform);

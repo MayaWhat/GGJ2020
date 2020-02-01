@@ -56,8 +56,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 0}
-          m_MethodName: 
+        - m_Target: {fileID: 7346102502794929283}
+          m_MethodName: AttemptToPlay
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -84,6 +84,7 @@ MonoBehaviour:
   _cardSymbol: 0
   _cardValueObject: {fileID: 0}
   _cardSymbolObject: {fileID: 6211145689930918807}
+  IsLeftHalf: 0
 --- !u!1 &3024084668879251397
 GameObject:
   m_ObjectHideFlags: 0

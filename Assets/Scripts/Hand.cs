@@ -9,13 +9,11 @@ public class Hand : MonoBehaviour
     private DiscardPile _discardPile;
     [SerializeField]
     private List<Card> _cards;
-
     [SerializeField]
     private FMODUnity.StudioEventEmitter _drawCardSound;
-
-
     private int _defaultHandSize = 5;
     private int _handSize;
+    private HalfCard _activeHalfCard;
 
     // Start is called before the first frame update
     void Start()
@@ -118,5 +116,35 @@ public class Hand : MonoBehaviour
            }
         }
         return false;
+    }
+
+    public void HalfCardSelected(HalfCard halfCard) {
+        if(_activeHalfCard == null)
+        {
+            _activeHalfCard = halfCard;
+        }
+
+        if(halfCard.IsLeftHalf != _activeHalfCard.IsLeftHalf) {
+            if(halfCard.IsLeftHalf) {
+                Combine(halfCard, _activeHalfCard);
+                return;
+            }
+            Combine(_activeHalfCard, halfCard);
+            return;
+        }
+
+         _activeHalfCard = halfCard;        
+    }
+
+    public void Combine(HalfCard leftCard, HalfCard rightCard) {
+        var combinedCardObject = Instantiate(Resources.Load("Prefabs/CombinedCard")) as GameObject;
+        var combinedCard = combinedCardObject.GetComponent<Card>();
+        combinedCard.SetValue(leftCard.Value);
+        combinedCard.Cost = leftCard.Cost;
+        combinedCard.SetSymbol(rightCard.Symbol);
+        combinedCard.transform.SetParent(transform);
+
+        GameObject.Destroy(leftCard.gameObject);
+        GameObject.Destroy(rightCard.gameObject);
     }
 }
