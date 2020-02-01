@@ -70,18 +70,12 @@ public class Enemy : MonoBehaviour
 	}
     
 	public delegate void DeathAction();
-	public static event DeathAction OnDeath;
+	public event DeathAction OnDeath;
 
-    public void Appear()
+    public bool Appear
     {
-        _spriteRenderer.enabled = true;
-        foreach (Transform uiElement in _enemyHealthUI.transform)
-        {
-            uiElement.gameObject.SetActive(true);
-        }
-
-        _enemyDrawPile.Init(_startDeck.GetCards());
-        _enemyHand.DrawHand();
+        get;
+        set;
     }
     
     // Start is called before the first frame update
@@ -94,6 +88,21 @@ public class Enemy : MonoBehaviour
         _enemyHealthUI = GameObject.FindGameObjectWithTag("EnemyHealthUI");
         _enemyDrawPile = FindObjectOfType<EnemyDrawPile>();
         _enemyHand = FindObjectOfType<EnemyHand>();
+    }
+
+    void Update()
+    {
+        if (Appear && !_spriteRenderer.enabled)
+        {
+            _spriteRenderer.enabled = true;
+            foreach (Transform uiElement in _enemyHealthUI.transform)
+            {
+                uiElement.gameObject.SetActive(true);
+            }
+
+            _enemyDrawPile.Init(_startDeck.GetCards());
+            DrawHand();
+        }
     }
 
     public void DrawHand()
