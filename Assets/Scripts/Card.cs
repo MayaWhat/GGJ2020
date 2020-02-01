@@ -30,6 +30,8 @@ public abstract class Card : MonoBehaviour
     protected Canvas _canvas;
     protected ScreenFlash _screenFlash;
 
+    private ParticleSystem _splitParticles;
+
     private bool _currentlyResolving = false;
 
     // Start is called before the first frame update
@@ -39,6 +41,11 @@ public abstract class Card : MonoBehaviour
         _playerEnergy = FindObjectOfType<PlayerEnergy>();
         _playerHand = FindObjectOfType<Hand>();
         _player = FindObjectOfType<Player>();
+        
+        var particlesPrefab = Resources.Load<ParticleSystem>("Prefabs/CardSplitParticles");
+        _splitParticles = Instantiate(particlesPrefab).GetComponent<ParticleSystem>();
+        _splitParticles.transform.SetParent(transform);
+        _splitParticles.transform.localPosition = new Vector3(0f, 0f, 0f);
 
         if (_cardValueObject != null) {
             _cardValueImage = _cardValueObject.GetComponent<Image>();
@@ -169,6 +176,10 @@ public abstract class Card : MonoBehaviour
 
         var halves = Split();
         _screenFlash.Flash();
+
+        // _splitParticles.transform.SetParent(_canvas.transform);
+        // _splitParticles.transform.position = transform.position;
+        _splitParticles.Play();
 
         // TODO: remove once the card effects are animated
         yield return new WaitForSeconds(1f);
