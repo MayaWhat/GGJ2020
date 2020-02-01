@@ -8,7 +8,7 @@ public abstract class Card : MonoBehaviour
     [SerializeField]
     protected int _value;
     [SerializeField]
-    protected bool _isAttack;
+    protected CardSymbol _cardSymbol;
     [SerializeField]
     protected GameObject _cardValueObject;
     protected Image _cardValueImage;
@@ -17,13 +17,20 @@ public abstract class Card : MonoBehaviour
 
     protected DiscardPile _discardPile;
 
+    [SerializeField]
+    protected HalfCardLeft _halfCardLeft;
+
+    [SerializeField]
+    protected HalfCardRight _halfCardRight;
 
     // Start is called before the first frame update
     protected void Start()
     {
         _discardPile = FindObjectOfType<DiscardPile>();
-        _cardValueImage = _cardValueObject.GetComponent<Image>();
-        _cardValueImage.sprite = Resources.Load<Sprite>("Sprites/Cards/Numbers/" + _value.ToString());
+        if (_cardValueObject != null) {
+            _cardValueImage = _cardValueObject.GetComponent<Image>();
+            _cardValueImage.sprite = Resources.Load<Sprite>("Sprites/Cards/Numbers/" + _value.ToString());
+        }        
         _playerEnergy = FindObjectOfType<PlayerEnergy>();
     }
 
@@ -37,7 +44,7 @@ public abstract class Card : MonoBehaviour
 
     public abstract void PlayMe();
 
-    public bool CanBePlayed() 
+    public virtual bool CanBePlayed() 
     {
         return _cost <= _playerEnergy.Energy && GameManager.Instance.Phase == GameplayPhase.PlayCards && !Player.Instance.IsDead && !Enemy.Instance.IsDead;
     }
@@ -50,5 +57,24 @@ public abstract class Card : MonoBehaviour
         }
 
         PlayMe();
+    }
+
+    public void Split() {
+
+        var leftHalf = Instantiate(_halfCardLeft);
+        var rightHalf = Instantiate(_halfCardRight);
+
+        leftHalf.SetValue(_value);
+        rightHalf.SetSymbol(_cardSymbol);
+
+        leftHalf.transform.SetParent(_discardPile.transform);
+        rightHalf.transform.SetParent(_discardPile.transform);
+        GameObject.Destroy(transform.gameObject);
+    }
+
+    public enum CardSymbol 
+    {
+        Attack = 0,
+        Block = 1
     }
 }

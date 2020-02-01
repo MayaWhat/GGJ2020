@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Resources/Sprites/background.png.meta
 guid: de0a66d2c972408419c404c0c782cd3b
+=======
+guid: e1359cbec00c7f34cac875b5abaa60d2
+>>>>>>> 5aa0df9a1a7259117babb2e13424d1d643783a16:Assets/Resources/Sprites/background.png.meta
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}

@@ -1,26 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class StrikeCard : Card
-{    
-    // Start is called before the first frame update
-    void Start()
-    {
-        base.Start();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+﻿public class StrikeCard : Card
+{
     public override void PlayMe()
     {
         _playerEnergy.Energy -= _cost;
-        GameManager.Instance.Enemy.TakeDamage(_value);        
-        transform.SetParent(_discardPile.transform, false);
-        _discardPile.UpdateUIText();
+        GameManager.Instance.Enemy.TakeDamage(_value);
+        Split();
     }
 }
