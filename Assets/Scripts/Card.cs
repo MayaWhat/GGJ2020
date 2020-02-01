@@ -211,7 +211,7 @@ public abstract class Card : MonoBehaviour
         });
     }
 
-    private IEnumerator AnimateDiscard(Action onComplete, params Card[] cards)
+    public IEnumerator AnimateDiscard(Action onComplete, params Card[] cards)
     {
         var discardDestination = new Vector3(500f, -500f, 0f);
         for(var i = 0; i < cards.Length; i++)

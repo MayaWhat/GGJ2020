@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Hand : MonoBehaviour
@@ -13,12 +14,17 @@ public class Hand : MonoBehaviour
     private int _handSize;
     private HalfCard _activeHalfCard;
 
+    protected Canvas _canvas;
+    protected ScreenFlash _screenFlash;
+
     // Start is called before the first frame update
     void Start()
     {
         _handSize = _defaultHandSize;
         _drawPile = FindObjectOfType<DrawPile>();
         _discardPile = FindObjectOfType<DiscardPile>();
+        _canvas = FindObjectOfType<Canvas>();     
+        _screenFlash = FindObjectOfType<ScreenFlash>();
     }
 
     // Update is called once per frame
@@ -225,17 +231,85 @@ public class Hand : MonoBehaviour
 
     public void Combine(HalfCard leftCard, HalfCard rightCard) 
     {
+        leftCard.Clickable = false;
+        leftCard.ChangeCardBack(Color.white);
+        rightCard.Clickable = false;
+        rightCard.ChangeCardBack(Color.white);
+        GameManager.Instance.Busyness++;  
+
+        GameManager.Instance.Sounds.Combine.Play();
+        StartCoroutine(AnimateCombineCard(leftCard, true));
+        StartCoroutine(AnimateCombineCard(rightCard, false, () =>
+        {
+            StartCoroutine(AnimateCombination(leftCard, rightCard));
+        }));
+    }
+    
+    private IEnumerator AnimateCombineCard(HalfCard card, bool isLeft, Action onComplete = null)
+    {
+
+        var position = card.transform.position;
+        card.transform.SetParent(_canvas.transform);
+        card.transform.position = position;
+
+        var startPosition = card.transform.localPosition;       
+        var moveTime = 0.1f;
+
+        var xPosition = isLeft ? -5f : 5f;
+        var yPosition = startPosition.y + 80f;
+
+        for (var t = 0.0f; t < 1.0f; t += Time.deltaTime / moveTime)
+        {
+            card.transform.localPosition = new Vector3(Mathf.Lerp(startPosition.x, xPosition, t), Mathf.Lerp(startPosition.y, yPosition, t), 0f);
+
+            yield return null;
+        }
+
+        startPosition = new Vector3(xPosition, yPosition, 0f);
+        var shakeTime = 1f;
+        for (var t = 0.0f; t < 1.0f; t += Time.deltaTime / shakeTime)
+        {
+            card.transform.localPosition = startPosition + new Vector3
+            (
+                UnityEngine.Random.Range(0f, 5f),
+                UnityEngine.Random.Range(0f, 5f),
+                UnityEngine.Random.Range(0f, 5f)
+            );
+
+            yield return null;
+        }
+
+        card.transform.localPosition = startPosition;
+
+        if(onComplete != null)
+        {
+            onComplete();
+        }
+    }
+
+    private IEnumerator AnimateCombination(HalfCard leftCard, HalfCard rightCard)
+    {
+        _screenFlash.Flash();
         var combinedCardObject = Instantiate(Resources.Load("Prefabs/CombinedCard")) as GameObject;
+        combinedCardObject.transform.SetParent(_canvas.transform);
+        combinedCardObject.transform.localPosition = new Vector3(0f, leftCard.transform.localPosition.y, 0f);
+
         var combinedCard = combinedCardObject.GetComponent<Card>();
         combinedCard.SetValue(leftCard.Value);
         combinedCard.Cost = leftCard.Cost;
         combinedCard.SetSymbol(rightCard.Symbol);
-        combinedCard.transform.SetParent(_discardPile.transform);
-
+        
         GameObject.Destroy(leftCard.gameObject);
-        GameObject.Destroy(rightCard.gameObject);
+        GameObject.Destroy(rightCard.gameObject);        
+
+        yield return new WaitForSeconds(1f);
 
         combinedCard.GetComponent<CombinedCard>().DoStart();
         combinedCard.GetComponent<CombinedCard>().ApplyEffects();
+
+        StartCoroutine(combinedCard.AnimateDiscard(() =>
+        {
+            GameManager.Instance.Busyness--;  
+        }, combinedCard));
     }
 }
