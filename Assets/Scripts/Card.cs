@@ -195,12 +195,21 @@ public abstract class Card : MonoBehaviour
 
     public virtual void AttemptToPlay()
     {
+        _playerHand.FullCardSelected();
+
         if (!CanBePlayed()) {
             Debug.Log("You can't do that!");
             return;
         }
 
         PlayMe();
+    }
+
+    public void ChangeCardBack(Color color) {
+        if (_cardBackObject != null) {
+            _cardBackImage = _cardBackObject.GetComponent<Image>();
+            _cardBackImage.color = color;
+        }
     }
 
     public (HalfCardLeft LeftHalf, HalfCardRight RightHalf) Split() {
