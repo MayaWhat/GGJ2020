@@ -26,6 +26,12 @@ public class Player : MonoBehaviour
         
     }
 
+    public void StartTurn()
+    {
+        _currentBlock = 0;
+        Debug.Log("Set players block to 0 at start of turn.");
+    }
+
     public void TakeDamage(int damageValue)
     {
         var mitigatedDamageValue = Math.Max(0, damageValue - _currentBlock);
