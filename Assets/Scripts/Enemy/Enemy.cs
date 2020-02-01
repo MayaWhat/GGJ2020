@@ -123,7 +123,7 @@ public class Enemy : MonoBehaviour
     {
         Block += block;
     }
-
+    
     public void Die() 
     {
         StartCoroutine(FadeOut(2f));
