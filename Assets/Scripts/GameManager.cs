@@ -51,5 +51,6 @@ public class GameManager : MonoBehaviour
         _hand.DrawHand();
         _playerEnergy.ResetEnergy();
         _enemy.DrawHand();
+        _enemy.ClearBlock();
     }
 }
