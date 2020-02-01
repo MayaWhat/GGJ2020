@@ -111,9 +111,8 @@ public class GameManager : MonoBehaviour
     {
         Phase = GameplayPhase.EnemyTurn;
 
-        Enemy.DoTurn();
-        
         Enemy.ClearBlock();
+        Enemy.DoTurn();
 
         if (_player.Health > 0)
         {
