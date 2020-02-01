@@ -61,6 +61,11 @@ public class Hand : MonoBehaviour
             yield return null;
         }
 
+        foreach(var card in cards)
+        {
+            card.localPosition = new Vector3(-340f, 0f, 0f);
+        }
+
         for (var i = cards.Length - 1; i >= 0; i--)
         {
             if(i > 0)

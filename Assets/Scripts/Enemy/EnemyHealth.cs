@@ -11,9 +11,6 @@ public class EnemyHealth : MonoBehaviour
     
     [SerializeField]
     private Text _healthText;
-
-    [SerializeField]
-    private Slider _blockSlider;
     
     [SerializeField]
     private Text _blockText;
@@ -30,7 +27,6 @@ public class EnemyHealth : MonoBehaviour
         if (GameManager.Instance.Enemy == null)
         {
             _healthSlider.enabled = false;
-            _blockSlider.enabled = false;
             _healthText.enabled = false;
             _blockText.enabled = false;
 
@@ -40,20 +36,17 @@ public class EnemyHealth : MonoBehaviour
         // it's not super efficient to do this every Update but ez to do now instead of having to write something
         // that detects when a new enemy is added and updating then
         _healthSlider.maxValue = GameManager.Instance.Enemy.StartingHealth;
-        _blockSlider.maxValue = GameManager.Instance.Enemy.StartingHealth;
         _healthSlider.enabled = true;
-        _blockSlider.enabled = true;
         _healthText.enabled = true;
         _blockText.enabled = true;
         _healthSlider.value = GameManager.Instance.Enemy?.Health ?? 0;
-        _blockSlider.value = GameManager.Instance.Enemy?.Block ?? 0;
 
         UpdateText();
     }
 
     public void UpdateText()
     {
-        _healthText.text = $"{GameManager.Instance.Enemy.Health.ToString()} / {GameManager.Instance.Enemy.StartingHealth.ToString()}";
+        _healthText.text = $"{GameManager.Instance.Enemy.Health.ToString()} I {GameManager.Instance.Enemy.StartingHealth.ToString()}";
         _blockText.text = $"{GameManager.Instance.Enemy.Block.ToString()}";
     }
 }

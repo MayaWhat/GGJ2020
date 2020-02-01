@@ -1,10 +1,15 @@
-﻿public class DefendCard : Card
+﻿using System;
+
+public class DefendCard : Card
 {
 
-    public override void PlayMe()
+    protected override void DoEffect(Action whenDone)
     {
-        _playerEnergy.Energy -= _cost;
         _player.GainBlock(_value);
-        Split();
+
+        if(whenDone != null)
+        {
+            whenDone();
+        }
     }
 }

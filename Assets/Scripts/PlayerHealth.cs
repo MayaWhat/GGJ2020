@@ -36,7 +36,7 @@ public class PlayerHealth : MonoBehaviour
 
     public void UpdateText()
     {
-        _healthText.text = $"{_player.Health.ToString()}  {_player.StartingHealth.ToString()}";
+        _healthText.text = $"{_player.Health.ToString()} I {_player.StartingHealth.ToString()}";
         _blockText.text = _player.Block.ToString();
     }
 }

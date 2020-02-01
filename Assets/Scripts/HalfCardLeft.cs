@@ -1,10 +1,12 @@
-﻿public class HalfCardLeft : HalfCard
+using System;
+
+public class HalfCardLeft : HalfCard
 {
     public override bool CanBePlayed() {
         return false;
     }
 
-    public override void PlayMe()
+    protected override void DoEffect(Action whenDone)
     {
         // plz don't, we don't know what could happen
     }
