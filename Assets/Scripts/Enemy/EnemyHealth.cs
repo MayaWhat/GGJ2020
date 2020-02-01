@@ -46,7 +46,7 @@ public class EnemyHealth : MonoBehaviour
 
     public void UpdateText()
     {
-        _healthText.text = $"{GameManager.Instance.Enemy.Health.ToString()}  {GameManager.Instance.Enemy.StartingHealth.ToString()}";
+        _healthText.text = $"{GameManager.Instance.Enemy.Health.ToString()} I {GameManager.Instance.Enemy.StartingHealth.ToString()}";
         _blockText.text = $"{GameManager.Instance.Enemy.Block.ToString()}";
     }
 }
