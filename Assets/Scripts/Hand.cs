@@ -302,10 +302,12 @@ public class Hand : MonoBehaviour
         GameObject.Destroy(leftCard.gameObject);
         GameObject.Destroy(rightCard.gameObject);        
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
 
         combinedCard.GetComponent<CombinedCard>().DoStart();
         combinedCard.GetComponent<CombinedCard>().ApplyEffects();
+
+        yield return new WaitForSeconds(0.5f);
 
         StartCoroutine(combinedCard.AnimateDiscard(() =>
         {

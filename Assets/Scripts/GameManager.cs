@@ -152,16 +152,17 @@ public class GameManager : MonoBehaviour
         Phase = GameplayPhase.EnemyTurn;
 
         Enemy.ClearBlock();
-        Enemy.DoTurn();
-
-        if (_player.Health > 0)
+        Enemy.DoTurn(() =>
         {
-            Enemy.DrawHand(DrawCards);
-        }
-        else
-        {
-            // TODO: YOU LOSE
-        }
+            if (_player.Health > 0)
+            {
+                Enemy.DrawHand(DrawCards);
+            }
+            else
+            {
+                // TODO: YOU LOSE
+            }
+        });        
     }
 
     private void EnemyDefeated()
