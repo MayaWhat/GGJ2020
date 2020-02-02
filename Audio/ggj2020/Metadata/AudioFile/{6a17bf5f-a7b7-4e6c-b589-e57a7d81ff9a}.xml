@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.00.00">
+	<object class="AudioFile" id="{6a17bf5f-a7b7-4e6c-b589-e57a7d81ff9a}">
+		<property name="assetPath">
+			<value>skelly attack.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>1</value>
+		</property>
+		<property name="length">
+			<value>1.3351473922902495</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{1f8e416f-afb9-4b01-8a89-ce78ff311be2}</destination>
+		</relationship>
+	</object>
+</objects>

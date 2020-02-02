@@ -152,7 +152,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CollisionTag: 
-  Event: event:/Enemies/Evil Birb/Defend
+  Event: event:/Enemies/Skelly/Defend
   PlayEvent: 0
   StopEvent: 0
   AllowFadeout: 1
@@ -175,7 +175,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CollisionTag: 
-  Event: event:/Enemies/Evil Birb/Attack
+  Event: event:/Enemies/Skelly/Attack
   PlayEvent: 0
   StopEvent: 0
   AllowFadeout: 1
