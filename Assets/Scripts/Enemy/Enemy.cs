@@ -23,6 +23,9 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private GameObject _blockImageObject;
     private Image _blockImage;
+    [SerializeField]
+    private GameObject _hitNumberObject;
+    private Text _hitNumberText;
 
     [SerializeField]
     private FMODUnity.StudioEventEmitter _damagedSound;
@@ -108,6 +111,7 @@ public class Enemy : MonoBehaviour
         _enemyHand = FindObjectOfType<EnemyHand>();
         _hitMarkerImage = _hitMarker.GetComponent<Image>();
         _blockImage = _blockImageObject.GetComponent<Image>();
+        _hitNumberText = _hitNumberObject.GetComponent<Text>();
     }
 
     void Update()
@@ -167,6 +171,13 @@ public class Enemy : MonoBehaviour
             _hp -= mitigatedDamageValue;
             StartCoroutine(FadeTo(0, 0.1f, true));
             StartCoroutine(FadeHitMarker(1f, .1f, () => Invoke("FadeHitMarkerOut", 1f)));
+            _hitNumberText.text = mitigatedDamageValue.ToString();
+            StartCoroutine(FadeHitNumber(1f, .1f, () => Invoke("FadeHitNumberOut", 2f)));
+        }
+        else
+        {
+            _hitNumberText.text = "0";
+            StartCoroutine(FadeHitNumber(1f, .1f, () => Invoke("FadeHitNumberOut", 2f)));
         }
 
         Debug.Log($"Enemy struck with {damageValue} damage, mitigated to {mitigatedDamageValue}. New block {_block}. New hp {_hp}.");
@@ -189,6 +200,27 @@ public class Enemy : MonoBehaviour
         {
             Color newColor = new Color(1, 1, 1, Mathf.Lerp(alpha, newAlphaValue, t));
             _hitMarkerImage.color = newColor;
+            yield return null;
+        }
+
+        if (onFinish != null)
+        {
+            onFinish();
+        }
+    }
+
+    private void FadeHitNumberOut()
+    {
+        StartCoroutine(FadeHitNumber(0, .4f, null));
+    }
+
+    IEnumerator FadeHitNumber(float newAlphaValue, float aTime, Action onFinish)
+    {
+        float alpha = _hitNumberText.color.a;
+        for (float t = 0.0f; t < 1.0f; t += Time.deltaTime / aTime)
+        {
+            Color newColor = new Color(1, 0, 0, Mathf.Lerp(alpha, newAlphaValue, t));
+            _hitNumberText.color = newColor;
             yield return null;
         }
 
