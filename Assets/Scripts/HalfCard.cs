@@ -1,5 +1,14 @@
+using UnityEngine;
+using UnityEngine.UI;
+
 public abstract class HalfCard : Card 
 {
+    [SerializeField]
+    protected Image _highlightImage;
+
+    [SerializeField]
+    protected Image _activeImage;
+
     public bool IsLeftHalf;
     public bool Clickable = true;
 
@@ -21,5 +30,10 @@ public abstract class HalfCard : Card
             return;
         }
         _playerHand.HalfCardSelected(this);
+    }
+
+    public void ChangeCardBack(bool active, bool matches) {
+        _activeImage.enabled = active;
+        _highlightImage.enabled = !active && matches;
     }
 }

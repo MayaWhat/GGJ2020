@@ -200,8 +200,11 @@ public class Hand : MonoBehaviour
         
         foreach(Transform cardObject in transform)
         {
-        var card = cardObject.GetComponent<Card>();
-        card.ChangeCardBack(Color.white);
+            var card = cardObject.GetComponent<HalfCard>();
+            if(card != null)
+            {
+                card.ChangeCardBack(false, false);
+            }
         }
 
         if(_activeHalfCard == null)
@@ -209,7 +212,7 @@ public class Hand : MonoBehaviour
             return;
         }
         
-        _activeHalfCard.ChangeCardBack(Color.red);
+        _activeHalfCard.ChangeCardBack(true, true);
 
         foreach(Transform cardObject in transform)
         {
@@ -219,11 +222,11 @@ public class Hand : MonoBehaviour
             {
                 if(_activeHalfCard.IsLeftHalf && !halfCard.IsLeftHalf && _activeHalfCard.Affordable)
                 {
-                    halfCard.ChangeCardBack(Color.blue);
+                    halfCard.ChangeCardBack(false, true);
                 }
                 else if(!_activeHalfCard.IsLeftHalf && halfCard.IsLeftHalf && halfCard.Affordable)
                 {
-                    halfCard.ChangeCardBack(Color.blue);
+                    halfCard.ChangeCardBack(false, true);
                 }
             }
         }
@@ -232,9 +235,9 @@ public class Hand : MonoBehaviour
     public void Combine(HalfCard leftCard, HalfCard rightCard) 
     {
         leftCard.Clickable = false;
-        leftCard.ChangeCardBack(Color.white);
+        leftCard.ChangeCardBack(false, false);
         rightCard.Clickable = false;
-        rightCard.ChangeCardBack(Color.white);
+        rightCard.ChangeCardBack(false, false);
         GameManager.Instance.Busyness++;  
 
         GameManager.Instance.Sounds.Combine.Play();

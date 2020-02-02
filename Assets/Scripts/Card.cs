@@ -291,14 +291,6 @@ public abstract class Card : MonoBehaviour
         }
     }
 
-
-    public void ChangeCardBack(Color color) {
-        if (_cardBackObject != null) {
-            _cardBackImage = _cardBackObject.GetComponent<Image>();
-            _cardBackImage.color = color;
-        }
-    }
-
     public (HalfCardLeft LeftHalf, HalfCardRight RightHalf) Split() {
         var leftHalfObject = Instantiate(Resources.Load("Prefabs/HalfCardLeft")) as GameObject;
         var rightHalfObject = Instantiate(Resources.Load("Prefabs/HalfCardRight")) as GameObject;
