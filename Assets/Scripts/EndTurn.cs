@@ -17,7 +17,7 @@ public class EndTurn : MonoBehaviour
     void Start()
     {
         _gameManager = FindObjectOfType<GameManager>();
-        _spriteRenderer = GetComponent<Image>();
+        _spriteRenderer = GetComponentInChildren<Image>();
         _hand = FindObjectOfType<Hand>();
         _button = GetComponent<Button>();
         _youMayEndTurnSprite = Resources.Load<Sprite>("Sprites/End Turn Button/endturn_but_enabled");
