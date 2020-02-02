@@ -151,10 +151,9 @@ public class Enemy : MonoBehaviour
         _enemyHand.DrawHand(onFinish);
     }
 
-    public void DoTurn()
+    public void DoTurn(Action whenDone)
     {
-        _actingSound.Play();
-        _enemyHand.PlayAllCards();
+        _enemyHand.PlayAllCards(whenDone);
 
         Debug.Log("Enemy did turn.");
     }
@@ -186,6 +185,33 @@ public class Enemy : MonoBehaviour
             _hp = 0;
             Die();
         }
+    }
+
+    public IEnumerator AnimateAction()
+    {
+        _actingSound.Play();
+        var position = transform.position;
+
+        for (var t = 0.0f; t < 1.0f; t += Time.deltaTime / 0.2f)
+        {
+            transform.position = position + new Vector3(0f, -100f * t, 0f);
+            transform.localScale = new Vector3(1f + (0.2f * t), 1f + (0.2f * t), 1f + (0.2f * t));
+
+            yield return null;
+        }
+
+        yield return new WaitForSeconds(0.3f);
+
+        for (var t = 0.0f; t < 1.0f; t += Time.deltaTime / 0.1f)
+        {
+            transform.position = position + new Vector3(0f, -100f * (1f - t), 0f);
+            transform.localScale = new Vector3(1f + (0.2f * (1f - t)), 1f + (0.2f * (1f - t)), 1f + (0.2f * (1f - t)));
+
+            yield return null;
+        }
+
+        transform.position = position;
+        transform.localScale = new Vector3(1f,1f,1f);
     }
 
     private void FadeHitMarkerOut()
@@ -232,6 +258,7 @@ public class Enemy : MonoBehaviour
 
     public void GainBlock(int block)
     {
+        GameManager.Instance.Sounds.CombatBlock.Play();
         Block += block;
     }
 

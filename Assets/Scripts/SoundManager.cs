@@ -25,6 +25,9 @@ public class SoundManager : MonoBehaviour
     [SerializeField]
     public FMODUnity.StudioEventEmitter Combine;
 
+    [SerializeField]
+    public FMODUnity.StudioEventEmitter WitchHurt;
+
     // Start is called before the first frame update
     void Start()
     {

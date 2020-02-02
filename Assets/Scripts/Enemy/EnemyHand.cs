@@ -9,6 +9,7 @@ public class EnemyHand : MonoBehaviour
     private EnemyDiscardPile _discardPile;
     [SerializeField]
     private List<EnemyCard> _cards;
+    protected Canvas _canvas;
 
     private int _defaultHandSize = 2;
     private int _handSize;
@@ -19,6 +20,7 @@ public class EnemyHand : MonoBehaviour
         _handSize = _defaultHandSize;
         _drawPile = FindObjectOfType<EnemyDrawPile>();
         _discardPile = FindObjectOfType<EnemyDiscardPile>();
+        _canvas = FindObjectOfType<Canvas>();     
     }
 
     public void DrawHand(Action onFinish)
@@ -108,30 +110,59 @@ public class EnemyHand : MonoBehaviour
         card.SetParent(transform, false);
     }
 
-    public void PlayAllCards() 
+    public void PlayAllCards(Action whenDone) 
     {
-        var cardsToPlay = new List<Transform>();
+        var cardsToPlay = new Queue<EnemyCard>();
 
         foreach(Transform cardObject in transform)
         {
-            cardsToPlay.Add(cardObject);
+            cardsToPlay.Enqueue(cardObject.GetComponent<EnemyCard>());
         }
 
-        foreach(Transform cardObject in cardsToPlay)
+        StartCoroutine(PlayCard(cardsToPlay, whenDone));
+    }
+
+
+    private IEnumerator PlayCard(Queue<EnemyCard> cards, Action whenDone)
+    {
+        var card = cards.Dequeue();
+
+        var position = card.transform.position;
+        card.transform.SetParent(_canvas.transform);
+        card.transform.position = position;
+
+        var startPosition = card.transform.localPosition;       
+
+        var moveTime = 0.1f;
+
+        for (var t = 0.0f; t < 1.0f; t += Time.deltaTime / moveTime)
         {
-            var card = cardObject.GetComponent<EnemyCard>();
+            var movement = -80f * t;
+            card.transform.localPosition = startPosition + new Vector3(0f, movement, 0f);
 
-            if(card == null) {
-                continue; // Skip placeholders
-            }
-
-            card.PlayMe();
+            yield return null;
         }
 
-        // Destroy placeholders
-        foreach(Transform cardObject in transform)
+        startPosition += new Vector3(0f, -80f, 0f);
+        card.transform.localPosition = startPosition;
+
+        yield return new WaitForSeconds(0.5f);
+
+        StartCoroutine(GameManager.Instance.Enemy.AnimateAction());
+
+        yield return new WaitForSeconds(0.2f);
+
+        card.PlayMe();
+
+        yield return new WaitForSeconds(1f);
+
+        if(cards.Count == 0)
         {
-            GameObject.Destroy(cardObject.gameObject);
+            whenDone();
+        }
+        else
+        {
+            StartCoroutine(PlayCard(cards, whenDone));
         }
     }
 }
