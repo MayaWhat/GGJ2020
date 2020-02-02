@@ -13,6 +13,7 @@ public class Hand : MonoBehaviour
     private int _defaultHandSize = 5;
     private int _handSize;
     private HalfCard _activeHalfCard;
+    private PlayerEnergy _playerEnergy;
 
     protected Canvas _canvas;
     protected ScreenFlash _screenFlash;
@@ -25,6 +26,7 @@ public class Hand : MonoBehaviour
         _discardPile = FindObjectOfType<DiscardPile>();
         _canvas = FindObjectOfType<Canvas>();     
         _screenFlash = FindObjectOfType<ScreenFlash>();
+        _playerEnergy = FindObjectOfType<PlayerEnergy>();
     }
 
     // Update is called once per frame
@@ -234,6 +236,8 @@ public class Hand : MonoBehaviour
 
     public void Combine(HalfCard leftCard, HalfCard rightCard) 
     {
+        _playerEnergy.Energy -= leftCard.Cost;
+        
         leftCard.Clickable = false;
         leftCard.ChangeCardBack(false, false);
         rightCard.Clickable = false;
