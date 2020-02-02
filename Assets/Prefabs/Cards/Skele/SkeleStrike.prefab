@@ -394,4 +394,4 @@ MonoBehaviour:
   _value: 3
   _isAttack: 1
   _cardValueObject: {fileID: 3395427057892040112}
-  _increaseValue: 1
+  _increaseValue: 2
