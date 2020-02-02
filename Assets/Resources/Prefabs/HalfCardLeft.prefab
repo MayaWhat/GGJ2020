@@ -135,6 +135,8 @@ MonoBehaviour:
   _cardSymbolObject: {fileID: 0}
   _cardBackObject: {fileID: 2665291269691724634}
   _cardCostObject: {fileID: 3580313174259673112}
+  _highlightImage: {fileID: 795319013330481890}
+  _activeImage: {fileID: 5804941023197712421}
   IsLeftHalf: 0
   Clickable: 1
 --- !u!1 &1767943515838473732
@@ -168,11 +170,11 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1548173883751634900}
-  m_RootOrder: 3
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -19.07, y: -0.94}
+  m_AnchoredPosition: {x: -19.07, y: -0.94000244}
   m_SizeDelta: {x: -64.07, y: -10.32}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2331406611934392895
