@@ -272,14 +272,14 @@ public abstract class Card : MonoBehaviour
 
     public void OutOfMana()
     {
-        var speechBubble = _playerSpeechBubble.GetComponent<Image>();
-
+        _playerSpeechBubble.enabled = true;
+        _bubbleImage.sprite = Resources.Load<Sprite>("Sprites/Speech Bubble/bubble_no_mana");
         StartCoroutine(FadeBubble(1f, .1f, () => Invoke("FadeBubbleOut", 1f)));
     }
 
     private void FadeBubbleOut()
     {
-        StartCoroutine(FadeBubble(0, .4f, null));
+        StartCoroutine(FadeBubble(0, .4f, () => Invoke("HideBubble", 1f)));
     }
 
     IEnumerator FadeBubble(float newAlphaValue, float aTime, Action onFinish)
@@ -296,6 +296,10 @@ public abstract class Card : MonoBehaviour
         {
             onFinish();
         }
+    }
+
+    public void HideBubble() {
+        _playerSpeechBubble.enabled = false;
     }
 
 

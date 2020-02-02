@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class Player : MonoBehaviour
 {    
@@ -26,6 +27,8 @@ public class Player : MonoBehaviour
     [SerializeField]
     private GameObject _hitNumber;
     private TextMesh _hitNumberRenderer;
+    protected Speechbubble _playerSpeechBubble;
+    protected Image _bubbleImage;
     public int DamageTaken { get; set; }
 
     public bool IsDead { get; private set; }
@@ -81,6 +84,8 @@ public class Player : MonoBehaviour
         _hitMarkerRenderer = _hitMarker.GetComponent<SpriteRenderer>();
         _shieldMarkerRenderer = _shieldMarker.GetComponent<SpriteRenderer>();
         _hitNumberRenderer = _hitNumber.GetComponent<TextMesh>();
+        _playerSpeechBubble = FindObjectOfType<Speechbubble>();
+        _bubbleImage = _playerSpeechBubble.GetComponent<Image>();
     }
 
     // Update is called once per frame
@@ -122,8 +127,10 @@ public class Player : MonoBehaviour
         if (mitigatedDamageValue > 0)
         {
             _hp -= mitigatedDamageValue;
-
             StartCoroutine(FadeRed(0, 0.1f, true));
+            if (mitigatedDamageValue >= 5) {
+                BigOof();
+            }
         }
         else
         {
@@ -236,4 +243,37 @@ public class Player : MonoBehaviour
             _spriteRenderer.color = new Color(1, 1, 1, 1);
         }
     }
+
+    public void BigOof()
+    {
+        _playerSpeechBubble.enabled = true;
+        _bubbleImage.sprite = Resources.Load<Sprite>("Sprites/Speech Bubble/bubble_hurt_" + Random.Range(1,3));
+        StartCoroutine(FadeBubble(1f, .1f, () => Invoke("FadeBubbleOut", 1f)));
+    }
+
+    private void FadeBubbleOut()
+    {
+        StartCoroutine(FadeBubble(0, .4f, () => Invoke("HideBubble", 1f)));
+    }
+
+    IEnumerator FadeBubble(float newAlphaValue, float aTime, Action onFinish)
+    {
+        float alpha = _bubbleImage.color.a;
+        for (float t = 0.0f; t < 1.0f; t += Time.deltaTime / aTime)
+        {
+            Color newColor = new Color(1, 1, 1, Mathf.Lerp(alpha, newAlphaValue, t));
+            _bubbleImage.color = newColor;
+            yield return null;
+        }
+
+        if (onFinish != null)
+        {
+            onFinish();
+        }
+    }
+
+    public void HideBubble() {
+       _bubbleImage.color = (new Color(1,1,1,0));
+    }
+
 }
