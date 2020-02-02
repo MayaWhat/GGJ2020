@@ -191,6 +191,7 @@ public abstract class Card : MonoBehaviour
         _cardBackImage.enabled = false;
         _cardSymbolImage.enabled = false;
         _cardValueImage.enabled = false;
+        _cardCostText.enabled = false;
 
         var halves = Split();
         _screenFlash.Flash();

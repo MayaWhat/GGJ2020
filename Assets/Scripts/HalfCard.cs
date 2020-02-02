@@ -27,6 +27,7 @@ public abstract class HalfCard : Card
 
         if (!Affordable) {
             CantPlayFlash();
+            OutOfMana();
             return;
         }
         _playerHand.HalfCardSelected(this);
