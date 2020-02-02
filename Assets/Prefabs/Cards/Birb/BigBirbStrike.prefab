@@ -314,7 +314,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 773319bcf4a189f469bc12a0055c7a95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _value: 9
+  _value: 8
   _isAttack: 1
   _cardValueObject: {fileID: 7706325725984855729}
   _increaseValue: 0

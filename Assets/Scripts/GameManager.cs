@@ -17,6 +17,9 @@ public class GameManager : MonoBehaviour
         get;
         private set;
     }
+    
+	public delegate void BlockAction();
+	public static event BlockAction EnemyDefeatedEvent;
 
     private Enemy[] _enemyPool;
 
@@ -166,7 +169,7 @@ public class GameManager : MonoBehaviour
     private void EnemyDefeated()
     {
         _hand.DiscardHand();
-
+        EnemyDefeatedEvent();
         // TODO: pick a shiny new card
 
         Phase = GameplayPhase.Calm;
