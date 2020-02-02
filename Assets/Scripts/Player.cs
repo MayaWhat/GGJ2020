@@ -275,7 +275,7 @@ public class Player : MonoBehaviour
 
     private void FadeBubbleOut()
     {
-        StartCoroutine(FadeBubble(0, .4f, () => Invoke("HideBubble", 1f)));
+        StartCoroutine(FadeBubble(0, .4f, () => Invoke("HideBubble", 0.0f)));
     }
 
     IEnumerator FadeBubble(float newAlphaValue, float aTime, Action onFinish)
