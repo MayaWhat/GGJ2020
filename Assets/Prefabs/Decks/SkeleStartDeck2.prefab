@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7425816838338976973}
   - component: {fileID: 6958495353694985435}
   m_Layer: 0
-  m_Name: SkeleStartingDeck
+  m_Name: SkeleStartDeck2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44,6 +44,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cards:
-  - {fileID: 7705512912617322847, guid: 474af630afa96364db6e986a2f7e31c4, type: 3}
-  - {fileID: 4468270827358279992, guid: 047208a4de54a9f41a093c041136d6d3, type: 3}
-  - {fileID: 4468270827358279992, guid: 047208a4de54a9f41a093c041136d6d3, type: 3}
+  - {fileID: 4468270827358279992, guid: 474af630afa96364db6e986a2f7e31c4, type: 3}
+  - {fileID: 7705512912617322847, guid: 047208a4de54a9f41a093c041136d6d3, type: 3}
+  - {fileID: 4468270827358279992, guid: 474af630afa96364db6e986a2f7e31c4, type: 3}
