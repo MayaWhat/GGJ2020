@@ -21,6 +21,9 @@ public class Player : MonoBehaviour
     private GameObject _hitMarker;
     private SpriteRenderer _hitMarkerRenderer;
     [SerializeField]
+    private GameObject _shieldMarker;
+    private SpriteRenderer _shieldMarkerRenderer;
+    [SerializeField]
     private GameObject _hitNumber;
     private TextMesh _hitNumberRenderer;
     public int DamageTaken { get; set; }
@@ -76,6 +79,7 @@ public class Player : MonoBehaviour
         _hp = _startingHp;
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _hitMarkerRenderer = _hitMarker.GetComponent<SpriteRenderer>();
+        _shieldMarkerRenderer = _shieldMarker.GetComponent<SpriteRenderer>();
         _hitNumberRenderer = _hitNumber.GetComponent<TextMesh>();
     }
 
@@ -102,6 +106,7 @@ public class Player : MonoBehaviour
 
     public void TakeDamage(int damageValue)
     {
+        var didBlock = false;
         GameManager.Instance.Sounds.WitchHurt.Play();
         GameManager.Instance.Sounds.CombatImpact.Play();
         var oldBlock = _currentBlock;
@@ -110,6 +115,7 @@ public class Player : MonoBehaviour
 
         if (oldBlock != _currentBlock)
         {
+            didBlock = true;
             OnBlock();
         }
 
@@ -118,13 +124,17 @@ public class Player : MonoBehaviour
             _hp -= mitigatedDamageValue;
 
             StartCoroutine(FadeRed(0, 0.1f, true));
-            StartCoroutine(FadeHitMarker(1f, .1f, () => Invoke("FadeHitMarkerOut", 1f)));
-            StartCoroutine(FadeHitNumber(1f, .1f, () => Invoke("FadeHitNumberOut", 2f)));
         }
         else
         {
             _hitNumberRenderer.text = "0";
-            StartCoroutine(FadeHitNumber(1f, .1f, () => Invoke("FadeHitNumberOut", 2f)));
+            StartCoroutine(FadeHitNumber(1f, .1f, () => Invoke("FadeHitNumberOut", 3f)));
+        }
+        StartCoroutine(FadeHitMarker(1f, .1f, () => Invoke("FadeHitMarkerOut", 1f)));
+        StartCoroutine(FadeHitNumber(1f, .1f, () => Invoke("FadeHitNumberOut", 2f)));
+        if (didBlock)
+        {
+            StartCoroutine(FadeShieldMarker(1f, .1f, () => Invoke("FadeShieldMarkerOut", 1f)));
         }
         UpdateDamageTaken(mitigatedDamageValue);
         Debug.Log($"Player struck with {damageValue} damage, mitigated to {mitigatedDamageValue}. New block {_currentBlock}. New hp {_hp}.");
@@ -132,8 +142,7 @@ public class Player : MonoBehaviour
 
     public void UpdateDamageTaken(int damage)
     {
-        DamageTaken += damage;
-        _hitNumberRenderer.text = DamageTaken.ToString();
+        _hitNumberRenderer.text = damage.ToString();
     }
 
     
@@ -162,6 +171,10 @@ public class Player : MonoBehaviour
     {
         StartCoroutine(FadeHitMarker(0, .4f, null));
     }
+    private void FadeShieldMarkerOut()
+    {
+        StartCoroutine(FadeShieldMarker(0, .4f, null));
+    }
 
     public void GainBlock(int blockValue)
     {
@@ -169,6 +182,22 @@ public class Player : MonoBehaviour
         GameManager.Instance.Sounds.CombatBlock.Play();
 
         Debug.Log($"Player gained {blockValue} block. New block value {_currentBlock}.");
+    }
+
+    IEnumerator FadeShieldMarker(float newAlphaValue, float aTime, Action onFinish)
+    {
+        float alpha = _shieldMarkerRenderer.color.a;
+        for (float t = 0.0f; t < 1.0f; t += Time.deltaTime / aTime)
+        {
+            Color newColor = new Color(1, 1, 1, Mathf.Lerp(alpha, newAlphaValue, t));
+            _shieldMarkerRenderer.color = newColor;
+            yield return null;
+        }
+
+        if (onFinish != null)
+        {
+            onFinish();
+        }
     }
 
     IEnumerator FadeHitMarker(float newAlphaValue, float aTime, Action onFinish)
