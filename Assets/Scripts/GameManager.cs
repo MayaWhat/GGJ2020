@@ -17,6 +17,8 @@ public class GameManager : MonoBehaviour
         get;
         private set;
     }
+
+    private DefeatedText _youDied;
     
 	public delegate void BlockAction();
 	public static event BlockAction EnemyDefeatedEvent;
@@ -69,6 +71,7 @@ public class GameManager : MonoBehaviour
         _enemyPool = GetComponentsInChildren<Enemy>();
         _player = FindObjectOfType<Player>();
         _playerEnergy = FindObjectOfType<PlayerEnergy>();
+        _youDied = FindObjectOfType<DefeatedText>();
 
         _drawPile.Init(_startDeck.GetCards());
     }
@@ -161,7 +164,7 @@ public class GameManager : MonoBehaviour
             }
             else
             {
-                // TODO: YOU LOSE
+                _youDied.Defeated();
             }
         });        
     }
