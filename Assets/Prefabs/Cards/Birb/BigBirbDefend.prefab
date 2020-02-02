@@ -80,7 +80,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d04d34772c633e4abed15a4daec93d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _value: 7
+  _value: 5
   _isAttack: 0
   _cardValueObject: {fileID: 4566368617898924607}
   _increaseValue: 0
