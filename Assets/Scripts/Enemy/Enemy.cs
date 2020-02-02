@@ -23,6 +23,9 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private GameObject _blockImageObject;
     private Image _blockImage;
+    [SerializeField]
+    private GameObject _hitNumberObject;
+    private Text _hitNumberText;
 
     [SerializeField]
     private FMODUnity.StudioEventEmitter _damagedSound;
@@ -108,6 +111,7 @@ public class Enemy : MonoBehaviour
         _enemyHand = FindObjectOfType<EnemyHand>();
         _hitMarkerImage = _hitMarker.GetComponent<Image>();
         _blockImage = _blockImageObject.GetComponent<Image>();
+        _hitNumberText = _hitNumberObject.GetComponent<Text>();
     }
 
     void Update()
@@ -147,10 +151,9 @@ public class Enemy : MonoBehaviour
         _enemyHand.DrawHand(onFinish);
     }
 
-    public void DoTurn()
+    public void DoTurn(Action whenDone)
     {
-        _actingSound.Play();
-        _enemyHand.PlayAllCards();
+        _enemyHand.PlayAllCards(whenDone);
 
         Debug.Log("Enemy did turn.");
     }
@@ -167,6 +170,13 @@ public class Enemy : MonoBehaviour
             _hp -= mitigatedDamageValue;
             StartCoroutine(FadeTo(0, 0.1f, true));
             StartCoroutine(FadeHitMarker(1f, .1f, () => Invoke("FadeHitMarkerOut", 1f)));
+            _hitNumberText.text = mitigatedDamageValue.ToString();
+            StartCoroutine(FadeHitNumber(1f, .1f, () => Invoke("FadeHitNumberOut", 2f)));
+        }
+        else
+        {
+            _hitNumberText.text = "0";
+            StartCoroutine(FadeHitNumber(1f, .1f, () => Invoke("FadeHitNumberOut", 2f)));
         }
 
         Debug.Log($"Enemy struck with {damageValue} damage, mitigated to {mitigatedDamageValue}. New block {_block}. New hp {_hp}.");
@@ -175,6 +185,33 @@ public class Enemy : MonoBehaviour
             _hp = 0;
             Die();
         }
+    }
+
+    public IEnumerator AnimateAction()
+    {
+        _actingSound.Play();
+        var position = transform.position;
+
+        for (var t = 0.0f; t < 1.0f; t += Time.deltaTime / 0.2f)
+        {
+            transform.position = position + new Vector3(0f, -100f * t, 0f);
+            transform.localScale = new Vector3(1f + (0.2f * t), 1f + (0.2f * t), 1f + (0.2f * t));
+
+            yield return null;
+        }
+
+        yield return new WaitForSeconds(0.3f);
+
+        for (var t = 0.0f; t < 1.0f; t += Time.deltaTime / 0.1f)
+        {
+            transform.position = position + new Vector3(0f, -100f * (1f - t), 0f);
+            transform.localScale = new Vector3(1f + (0.2f * (1f - t)), 1f + (0.2f * (1f - t)), 1f + (0.2f * (1f - t)));
+
+            yield return null;
+        }
+
+        transform.position = position;
+        transform.localScale = new Vector3(1f,1f,1f);
     }
 
     private void FadeHitMarkerOut()
@@ -198,8 +235,30 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    private void FadeHitNumberOut()
+    {
+        StartCoroutine(FadeHitNumber(0, .4f, null));
+    }
+
+    IEnumerator FadeHitNumber(float newAlphaValue, float aTime, Action onFinish)
+    {
+        float alpha = _hitNumberText.color.a;
+        for (float t = 0.0f; t < 1.0f; t += Time.deltaTime / aTime)
+        {
+            Color newColor = new Color(1, 0, 0, Mathf.Lerp(alpha, newAlphaValue, t));
+            _hitNumberText.color = newColor;
+            yield return null;
+        }
+
+        if (onFinish != null)
+        {
+            onFinish();
+        }
+    }
+
     public void GainBlock(int block)
     {
+        GameManager.Instance.Sounds.CombatBlock.Play();
         Block += block;
     }
 
