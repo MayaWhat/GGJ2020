@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.00.00">
+	<object class="ParameterPreset" id="{ac1c19f1-8602-4c7a-b351-13febe289de4}">
+		<property name="name">
+			<value>IsMenu</value>
+		</property>
+		<relationship name="folder">
+			<destination>{b2b34489-8d99-4899-be18-ef5bc420747d}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{78008f08-132b-4cad-92ce-41fb1c70fa3a}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{78008f08-132b-4cad-92ce-41fb1c70fa3a}">
+		<property name="parameterType">
+			<value>2</value>
+		</property>
+		<property name="maximum">
+			<value>2</value>
+		</property>
+		<property name="enumerationLabels">
+			<value>No</value>
+			<value>Yes</value>
+		</property>
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+	</object>
+</objects>
