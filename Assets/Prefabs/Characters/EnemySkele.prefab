@@ -137,7 +137,7 @@ MonoBehaviour:
   _hitNumberObject: {fileID: 3466023968871051645}
   _damagedSound: {fileID: 6156745810171717742}
   _actingSound: {fileID: 187508018883887323}
-  _startDeck: {fileID: 6958495353694985435, guid: bcded72253154e04a81d217ab430060d,
+  _startDeck: {fileID: 6958495353694985435, guid: a090138d090ec654faf4ebc5f752be7f,
     type: 3}
 --- !u!114 &6156745810171717742
 MonoBehaviour:
