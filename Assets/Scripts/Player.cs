@@ -100,7 +100,22 @@ public class Player : MonoBehaviour
     private void JustDieAlready()
     {
         IsDead = true;
+
+        StartCoroutine(FadeOut(2f));
+
         OnDeath();
+    }
+
+    IEnumerator FadeOut(float aTime)
+    {
+        float newAlphaValue = 0;
+        float alpha = _spriteRenderer.color.a;
+        for (float t = 0.0f; t < 1.0f; t += Time.deltaTime / aTime)
+        {
+            Color newColor = new Color(1, 1, 1, Mathf.Lerp(alpha, newAlphaValue, t));
+            _spriteRenderer.color = newColor;
+            yield return null;
+        }
     }
 
     public void StartTurn()
@@ -111,9 +126,16 @@ public class Player : MonoBehaviour
 
     public void TakeDamage(int damageValue)
     {
+
         var didBlock = false;
         GameManager.Instance.Sounds.WitchHurt.Play();
         GameManager.Instance.Sounds.CombatImpact.Play();
+
+        if(_hp <= 0)
+        {
+            return;
+        }
+
         var oldBlock = _currentBlock;
         var mitigatedDamageValue = Math.Max(0, damageValue - _currentBlock);
         _currentBlock = Math.Max(0, _currentBlock - damageValue);
