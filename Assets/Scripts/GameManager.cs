@@ -139,7 +139,9 @@ public class GameManager : MonoBehaviour
         {
             return;
         }
-
+        
+        Player.Instance.DamageTaken = 0;
+        
         _hand.DiscardHand();
 
         Phase = GameplayPhase.PlayerTurnEnded;

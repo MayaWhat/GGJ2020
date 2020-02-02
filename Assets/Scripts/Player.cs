@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {    
@@ -19,6 +20,10 @@ public class Player : MonoBehaviour
     [SerializeField]
     private GameObject _hitMarker;
     private SpriteRenderer _hitMarkerRenderer;
+    [SerializeField]
+    private GameObject _hitNumber;
+    private TextMesh _hitNumberRenderer;
+    public int DamageTaken { get; set; }
 
     public bool IsDead { get; private set; }
 
@@ -71,6 +76,7 @@ public class Player : MonoBehaviour
         _hp = _startingHp;
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _hitMarkerRenderer = _hitMarker.GetComponent<SpriteRenderer>();
+        _hitNumberRenderer = _hitNumber.GetComponent<TextMesh>();
     }
 
     // Update is called once per frame
@@ -104,16 +110,50 @@ public class Player : MonoBehaviour
         {
             OnBlock();
         }
-        
+
         if (mitigatedDamageValue > 0)
         {
             _hp -= mitigatedDamageValue;
 
             StartCoroutine(FadeRed(0, 0.1f, true));
             StartCoroutine(FadeHitMarker(1f, .1f, () => Invoke("FadeHitMarkerOut", 1f)));
+            StartCoroutine(FadeHitNumber(1f, .1f, () => Invoke("FadeHitNumberOut", 2f)));
+        }
+        else
+        {
+            _hitNumberRenderer.text = "0";
+            StartCoroutine(FadeHitNumber(1f, .1f, () => Invoke("FadeHitNumberOut", 2f)));
+        }
+        UpdateDamageTaken(mitigatedDamageValue);
+        Debug.Log($"Player struck with {damageValue} damage, mitigated to {mitigatedDamageValue}. New block {_currentBlock}. New hp {_hp}.");
+    }
+
+    public void UpdateDamageTaken(int damage)
+    {
+        DamageTaken += damage;
+        _hitNumberRenderer.text = DamageTaken.ToString();
+    }
+
+    
+    private void FadeHitNumberOut()
+    {
+        StartCoroutine(FadeHitNumber(0, .4f, null));
+    }
+
+    IEnumerator FadeHitNumber(float newAlphaValue, float aTime, Action onFinish)
+    {
+        float alpha = _hitNumberRenderer.color.a;
+        for (float t = 0.0f; t < 1.0f; t += Time.deltaTime / aTime)
+        {
+            Color newColor = new Color(1, 0, 0, Mathf.Lerp(alpha, newAlphaValue, t));
+            _hitNumberRenderer.color = newColor;
+            yield return null;
         }
 
-        Debug.Log($"Player struck with {damageValue} damage, mitigated to {mitigatedDamageValue}. New block {_currentBlock}. New hp {_hp}.");
+        if (onFinish != null)
+        {
+            onFinish();
+        }
     }
 
     private void FadeHitMarkerOut()
