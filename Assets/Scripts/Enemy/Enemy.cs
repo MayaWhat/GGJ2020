@@ -265,6 +265,7 @@ public class Enemy : MonoBehaviour
     public void Die() 
     {
         GameManager.Instance.Busyness++;
+        FadeHitNumberOut();
         StartCoroutine(FadeOut(2f, () => 
         {
             GameManager.Instance.Busyness--;
