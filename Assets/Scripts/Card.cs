@@ -29,9 +29,9 @@ public abstract class Card : MonoBehaviour
     protected PlayerEnergy _playerEnergy;
     protected DiscardPile _discardPile;
     protected Hand _playerHand;
-
     protected Player _player;
-
+    protected Speechbubble _playerSpeechBubble;
+    protected Image _bubbleImage;
     protected Canvas _canvas;
     protected ScreenFlash _screenFlash;
 
@@ -46,6 +46,8 @@ public abstract class Card : MonoBehaviour
         _playerEnergy = FindObjectOfType<PlayerEnergy>();
         _playerHand = FindObjectOfType<Hand>();
         _player = FindObjectOfType<Player>();
+        _playerSpeechBubble = FindObjectOfType<Speechbubble>();
+        _bubbleImage = _playerSpeechBubble.GetComponent<Image>();
         
         var particlesPrefab = Resources.Load<ParticleSystem>("Prefabs/CardSplitParticles");
         _splitParticles = Instantiate(particlesPrefab).GetComponent<ParticleSystem>();
@@ -259,12 +261,42 @@ public abstract class Card : MonoBehaviour
 
         if (!CanBePlayed()) {
             Debug.Log("You can't do that!");
+            OutOfMana();
             CantPlayFlash();
             return;
         }
 
         PlayMe();
     }
+
+    public void OutOfMana()
+    {
+        var speechBubble = _playerSpeechBubble.GetComponent<Image>();
+
+        StartCoroutine(FadeBubble(1f, .1f, () => Invoke("FadeBubbleOut", 1f)));
+    }
+
+    private void FadeBubbleOut()
+    {
+        StartCoroutine(FadeBubble(0, .4f, null));
+    }
+
+    IEnumerator FadeBubble(float newAlphaValue, float aTime, Action onFinish)
+    {
+        float alpha = _bubbleImage.color.a;
+        for (float t = 0.0f; t < 1.0f; t += Time.deltaTime / aTime)
+        {
+            Color newColor = new Color(1, 1, 1, Mathf.Lerp(alpha, newAlphaValue, t));
+            _bubbleImage.color = newColor;
+            yield return null;
+        }
+
+        if (onFinish != null)
+        {
+            onFinish();
+        }
+    }
+
 
     public void CantPlayFlash() {
         StartCoroutine(Flash(0, 0.1f, true));
@@ -288,14 +320,6 @@ public abstract class Card : MonoBehaviour
         if (!toRed)
         {
             _cardBackImage.color = new Color(1, 1, 1, 1);
-        }
-    }
-
-
-    public void ChangeCardBack(Color color) {
-        if (_cardBackObject != null) {
-            _cardBackImage = _cardBackObject.GetComponent<Image>();
-            _cardBackImage.color = color;
         }
     }
 
